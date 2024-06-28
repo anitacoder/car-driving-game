@@ -1,7 +1,7 @@
 const score = document.querySelector(".score");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
-let player = { speed: 5, x: 0, y: 0 }; // Initialize player with speed and starting position
+let player = { speed: 5, score: 0}; // Initialize player with speed and starting position
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
 startScreen.addEventListener("click", start);
@@ -24,7 +24,7 @@ function isCollide(a,b) {
     let bReact = b.getBoundingClientRect();
 
     return !(
-        (aReact.bottom < bReact.top) ||
+        (aRect.bottom < bReact.top) ||
         (aRect.top > bReact.bottom) ||
         (aRect.right < bReact.left) ||
         (aRect.left > aRect.right)
@@ -68,6 +68,8 @@ function playGame() {
         car.style.left = player.x + 'px';
         car.style.top = player.y + 'px';
         window.requestAnimationFrame(playGame);
+        player.score++;
+        score.innerHTML = player.score;
     }
 }
 
@@ -87,6 +89,7 @@ function start() {
     startScreen.classList.add("hide");
     gameArea.classList.remove("hide");
     player.start = true;
+    player.score = 0;
     for(let x = 0; x < 10; x++) {
         let div = document.createElement("div");
         div.classList.add("line");
