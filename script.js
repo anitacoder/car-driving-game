@@ -8,8 +8,13 @@ startScreen.addEventListener("click", start);
 document.addEventListener("keydown", pressOn);
 document.addEventListener("keyup", pressOff);
 
+function moveLine() {
+    
+}
+
 function playGame() {
     let car = document.querySelector(".car");
+    moveLine();
     let road = gameArea.getBoundingClientRect();
 
     if (player.start) {
