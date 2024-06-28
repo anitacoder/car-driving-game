@@ -27,7 +27,7 @@ body, html {
     display: none;
 }
 
-.car, .enemyyy {
+.car, .enemy {
     position: absolute;
     bottom: 100px;
     left: 50%;
