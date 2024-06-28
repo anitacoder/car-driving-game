@@ -9,7 +9,15 @@ document.addEventListener("keydown", pressOn);
 document.addEventListener("keyup", pressOff);
 
 function moveLine() {
-    
+    let lines = document.querySelectorAll(".line");
+    lines.forEach(function(item){
+        console.log(item.y);
+        if(item.y >= 1500) {
+            item.y = -1500;
+        }
+        item.y += player.speed;
+        item.style.top = item.y + "px";
+    })
 }
 
 function playGame() {
@@ -52,12 +60,14 @@ function start() {
     startScreen.classList.add("hide");
     gameArea.classList.remove("hide");
     player.start = true;
-    for(let x = 0; x < 5; x++) {
+    for(let x = 0; x < 10; x++) {
         let div = document.createElement("div");
         div.classList.add("line");
+        div.y = x * 150;
         div.style.top = (x*150) + "px";
         gameArea.appendChild(div);
     }
+    
     window.requestAnimationFrame(playGame);
 
     let car = document.createElement("div");
@@ -67,5 +77,11 @@ function start() {
 
     player.x = car.offsetLeft;
     player.y = car.offsetTop;
-    console.log(player);
+    for(let x = 0; x < 3; x++) {
+        let enemy = document.createElement("div");
+        enemy.classList.add("line");
+        enemy.y = x * 150;
+        enemy.style.top = (x*150) + "px";
+        gameArea.appendChild(enemy);
+    }
 }
