@@ -98,6 +98,6 @@ function start() {
         enemy.style.top = enemy.y + "px";
         enemy.style.left = Math.floor(Math.random()*150) + "px";
         enemy.style.backgroundColor = "red";
-        gameArea.appendChild(enemy);
+        gameArea.appendChild(enemy);hhhhh
     }
 }
