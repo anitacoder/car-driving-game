@@ -45,3 +45,11 @@ body, html {
     transform: translateX(-50%);
     background-color: white;
 }
+
+.score {
+    background-color: black;
+    color: white;
+    height: 60px;
+    font-size: 1.5em;
+    font-family: fantasy;
+}

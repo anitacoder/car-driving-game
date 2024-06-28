@@ -69,7 +69,7 @@ function playGame() {
         car.style.top = player.y + 'px';
         window.requestAnimationFrame(playGame);
         player.score++;
-        score.innerHTML = player.score;
+        score.innerHTML = "Score: " + player.score;
     }
 }
 
