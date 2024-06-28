@@ -11,7 +11,6 @@ document.addEventListener("keyup", pressOff);
 function moveLine() {
     let lines = document.querySelectorAll(".line");
     lines.forEach(function(item){
-        console.log(item.y);
         if(item.y >= 1500) {
             item.y = -1500;
         }
@@ -20,10 +19,24 @@ function moveLine() {
     })
 }
 
-function moveEnemy() {
+function isCollide(a,b) {
+    let aRect = a.getBoundingClientRect();
+    let bReact = b.getBoundingClientRect();
+
+    return !(
+        (aReact.bottom < bReact.top) ||
+        (aRect.top > bReact.bottom) ||
+        (aRect.right < bReact.left) ||
+        (aRect.left > aRect.right)
+    )
+}
+
+function moveEnemy(car) {
     let enemies = document.querySelectorAll(".enemy");
     enemies.forEach(function(item){
-        console.log(item.y);
+        if(isCollide(car, item)) {
+            console.log('HIT');
+        }
         if(item.y >= 1500) {
             item.y = -600;
             item.style.left = Math.floor(Math.random() * 150) + "px";
@@ -36,7 +49,7 @@ function moveEnemy() {
 function playGame() {
     let car = document.querySelector(".car");
     moveLine();
-    moveEnemy();
+    moveEnemy(car);
     let road = gameArea.getBoundingClientRect();
 
     if (player.start) {
@@ -98,6 +111,6 @@ function start() {
         enemy.style.top = enemy.y + "px";
         enemy.style.left = Math.floor(Math.random()*150) + "px";
         enemy.style.backgroundColor = "red";
-        gameArea.appendChild(enemy);hhhhh
+        gameArea.appendChild(enemy);
     }
 }
