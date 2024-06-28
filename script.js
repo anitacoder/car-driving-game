@@ -36,6 +36,7 @@ function moveEnemy(car) {
     enemies.forEach(function(item){
         if(isCollide(car, item)) {
             console.log('HIT');
+            endGame();
         }
         if(item.y >= 1500) {
             item.y = -600;
@@ -83,6 +84,12 @@ function pressOff(e) {
     e.preventDefault();
     keys[e.key] = false;
     console.log("off", e.key);
+}
+
+function endGame() {
+    player.start = false;
+    score.innerHTML = "Game Over<br> Score was" + player.score;
+
 }
 
 function start() {
