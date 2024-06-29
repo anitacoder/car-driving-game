@@ -118,10 +118,19 @@ function start() {
     for(let x = 0; x < 3; x++) {
         let enemy = document.createElement("div");
         enemy.classList.add("enemy");
+        enemy.innerHTML = (x+1);
         enemy.y = ((x+1)*600)*-1;
         enemy.style.top = enemy.y + "px";
         enemy.style.left = Math.floor(Math.random()*150) + "px";
-        enemy.style.backgroundColor = "red";
+        enemy.style.backgroundColor = randomColor();
         gameArea.appendChild(enemy);
     }
+}
+
+function randomColor() {
+    function c() {
+        let Hex = Math.floor(Math.random()*256).toString(16);
+        return("0" + String(Hex)).substring(-2);
+    }
+    return "#"+c()+c()+c();
 }
