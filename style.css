@@ -32,6 +32,8 @@ body, html {
     height: 150px;
     background-color: blue;
     font-size: 2em;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .line {
