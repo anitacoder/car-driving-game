@@ -30,12 +30,12 @@ body, html {
     transform: translateX(-50%);
     width: 50px;
     height: 150px;
-    background-color: blue;
-    font-size: 2em;
-    text-align: center;
-    vertical-align: middle;
-    background-image: url(car2.png);
+    background-image: url('Images/car2.png'); /* Adjust the path to your actual car image */
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    font-size: 2em;
 }
 
 .line {
