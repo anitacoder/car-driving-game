@@ -11,8 +11,8 @@ document.addEventListener("keyup", pressOff);
 function moveLine() {
     let lines = document.querySelectorAll(".line");
     lines.forEach(function(item){
-        if(item.y >= 1500) {
-            item.y = -1500;
+        if(item.y >= gameArea.offsetHeight) {
+            item.y = -150;
         }
         item.y += player.speed;
         item.style.top = item.y + "px";
