@@ -24,22 +24,23 @@ body, html {
     margin:  auto;
 }
 
-.car, .enemy {
-    position: absolute;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px; 
-    height: 100px;
-    background-color: white;
-    background-image: url('../Images/car2.png'); 
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    text-align: center;
-    font-size: 2em;
-    color: white;
-}
+    .car, .enemy {
+        position: absolute;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px; 
+        height: 100px;
+        background-color: white;
+        background-image: url('../Images/car2.png'); 
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-align: center;
+        font-size: 1.7em;
+        line-height: 112px;
+        color: white;
+    }
 
 
 .line {
