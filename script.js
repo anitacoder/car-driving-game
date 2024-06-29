@@ -90,8 +90,6 @@ function endGame() {
     player.start = false;
     score.innerHTML = "Game Over<br> Score was" + player.score;
     startScreen.classList.remove("hide");
-
-
 }
 
 function start() {
