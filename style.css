@@ -23,10 +23,6 @@ body, html {
     margin: 0 auto;
 }
 
-.hide {
-    display: none;
-}
-
 .car, .enemy {
     position: absolute;
     bottom: 100px;
