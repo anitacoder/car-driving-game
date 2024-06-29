@@ -34,6 +34,8 @@ body, html {
     font-size: 2em;
     text-align: center;
     vertical-align: middle;
+    background-image: url(car2.png);
+    background-size: cover;
 }
 
 .line {
