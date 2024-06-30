@@ -115,13 +115,14 @@ body, html {
 
 .instructionsContent ul {
     list-style-type: disc;
-    padding-left: 20px;
+    padding-left: 10px;
     margin-top: 5px;
 }
 
 .instructionsContent li {
     margin-bottom: 5px;
-    color: #555; 
+    color: #555;
+ 
 }
 
 #instructionsButton {
@@ -142,6 +143,10 @@ body, html {
 
 #instructionsButton:hover {
     background-color: #555; 
+}
+
+.one {
+    margin-right: 125px;
 }
 
 .cancelArea {
