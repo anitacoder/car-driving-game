@@ -63,12 +63,10 @@ body, html {
 
 .startScreen {
     text-align: center;
-    border: 1px solid red;
     padding: 15px;
     margin: auto;
     width: 50%;
     position: absolute;
-    background-color: red;
     left: 25%;
     top: 100px;
     color: white;
@@ -181,7 +179,7 @@ body, html {
 }
 
 .three {
-    margin-right: 190px;
+    margin-right: 195px;
     white-space: nowrap; 
     text-overflow: ellipsis;
     font-size: 18px;
