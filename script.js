@@ -39,7 +39,7 @@ function moveEnemy(car) {
         if(item.y >= 1500) {
             item.y = -600;
             item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + "px";
-            item.style.backgroundColor = randomColor(); // Randomize enemy color on reset
+            item.style.backgroundColor = randomColor(); 
         }
         item.y += player.speed;
         item.style.top = item.y + "px";
@@ -47,7 +47,7 @@ function moveEnemy(car) {
 }
 
 let lastScoreUpdateTime = 0;
-const scoreUpdateInterval = 750;
+const scoreUpdateInterval = 790;
 
 function playGame() {
     let currentTime = Date.now();
