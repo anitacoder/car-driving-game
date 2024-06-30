@@ -146,7 +146,15 @@ body, html {
 }
 
 .one {
-    margin-right: 125px;
+    margin-right: 120px;
+}
+
+.two {
+    margin-right: 15px;
+}
+
+.three {
+    margin-right: 55px;
 }
 
 .cancelArea {
