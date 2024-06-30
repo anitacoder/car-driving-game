@@ -132,3 +132,18 @@ function randomColor() {
     }
     return "#" + c() + c() + c();
 }
+
+
+// script.js - Add JavaScript for button functionality
+const instructionsButton = document.getElementById("instructionsButton");
+const instructionsDropdown = document.querySelector(".instructionsDropdown");
+
+instructionsButton.addEventListener("click", function() {
+    instructionsDropdown.classList.toggle("active");
+});
+
+const cancelInstructionsButton = document.getElementById("cancelInstructions");
+
+cancelInstructionsButton.addEventListener("click", function() {
+    instructionsDropdown.classList.remove("active");
+});
