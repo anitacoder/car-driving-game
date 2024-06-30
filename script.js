@@ -1,12 +1,9 @@
-// script.js
-
 const score = document.querySelector(".score");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
-let player = { speed: 5, score: 0 }; // Initialize player with speed and starting position
+let player = { speed: 5, score: 0 }; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
-// Function to move lines on the game area
 function moveLine() {
     let lines = document.querySelectorAll(".line");
     lines.forEach(function(item){
@@ -18,7 +15,6 @@ function moveLine() {
     });
 }
 
-// Function to check collision between two elements
 function isCollide(a, b) {
     let aRect = a.getBoundingClientRect();
     let bRect = b.getBoundingClientRect();
@@ -31,7 +27,6 @@ function isCollide(a, b) {
     );
 }
 
-// Function to move enemies on the game area
 function moveEnemy(car) {
     let enemies = document.querySelectorAll(".enemy");
     enemies.forEach(function(item){
@@ -42,20 +37,24 @@ function moveEnemy(car) {
         if(item.y >= 1500) {
             item.y = -600;
             item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + "px";
+            item.style.backgroundColor = randomColor(); // Randomize enemy color on reset
         }
         item.y += player.speed;
         item.style.top = item.y + "px";
     });
 }
 
-// Function to play the game
+let lastScoreUpdateTime = 0;
+const scoreUpdateInterval = 750;
+
 function playGame() {
+    let currentTime = Date.now();
     let car = document.querySelector(".car");
     moveLine();
     moveEnemy(car);
     let road = gameArea.getBoundingClientRect();
 
-    if (player.start) {
+    if (player.start && player.paused) {
         if (keys.ArrowUp && player.y > road.top) {
             player.y -= player.speed;
         }
@@ -68,36 +67,37 @@ function playGame() {
         if (keys.ArrowRight && player.x < (road.width - car.offsetWidth / 2)) { 
             player.x += player.speed;
         }
+
+        if(currentTime - lastScoreUpdateTime >= scoreUpdateInterval) {
+            player.score++;
+            score.innerHTML = "Score: " + player.score;
+            lastScoreUpdateTime = currentTime;
+        }
+        window.requestAnimationFrame(playGame);
         car.style.left = player.x + 'px';
         car.style.top = player.y + 'px';
-        window.requestAnimationFrame(playGame);
-        player.score++;
-        score.innerHTML = "Score: " + player.score;
     }
 }
 
-// Event listener for key press down
 function pressOn(e) {
     e.preventDefault();
     keys[e.key] = true;
+    if(e.key === "") //Handle the space bar
     console.log("on", e.key);
 }
 
-// Event listener for key press up
 function pressOff(e) {
     e.preventDefault();
     keys[e.key] = false;
     console.log("off", e.key);
 }
 
-// Function to end the game
 function endGame() {
     player.start = false;
     score.innerHTML = "Game Over<br> Score was " + player.score;
     startScreen.classList.remove("hide");
 }
 
-// Function to start the game
 function start() {
     startScreen.classList.add("hide");
     gameArea.innerHTML = "";
@@ -131,20 +131,20 @@ function start() {
     }
 }
 
-// Function to generate random color
 function randomColor() {
     function c() {
         let hex = Math.floor(Math.random() * 256).toString(16);
-        return ("0" + String(hex)).substr(-2);
+        return ("0" + hex).slice(-2);
     }
     return "#" + c() + c() + c();
 }
 
-// Event listener for Start Game button
 const startGameButton = document.getElementById("startGameButton");
-startGameButton.addEventListener("click", start);
+startGameButton.addEventListener("click", function() {
+    startScreen.classList.add("hide");
+    start();
+});
 
-// script.js - Add JavaScript for button functionality
 const instructionsButton = document.getElementById("instructionsButton");
 const instructionsDropdown = document.querySelector(".instructionsDropdown");
 
@@ -157,3 +157,6 @@ const cancelInstructionsButton = document.getElementById("cancelInstructions");
 cancelInstructionsButton.addEventListener("click", function() {
     instructionsDropdown.classList.remove("active");
 });
+
+document.addEventListener("keydown", pressOn); // Listen for key press
+document.addEventListener("keyup", pressOff); // Listen for key release
