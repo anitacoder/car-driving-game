@@ -112,7 +112,6 @@ function resumeGame() {
     player.paused = false;
     console.log("Resume Game");
     window.requestAnimationFrame(playGame);
-
 }
 
 function endGame() {
