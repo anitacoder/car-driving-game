@@ -83,16 +83,20 @@ body, html {
 
 .instructionsDropdown {
     position: absolute;
-    top: 100%;
-    left: 50%;
+    top: 105%;
+    left: 30%;
     transform: translateX(-50%);
-    width: 200px;
+    width: 260px;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.9); 
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 2;
     display: none;
+    border-radius: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: black;
 }
 
 .instructionsDropdown.active {
@@ -112,6 +116,7 @@ body, html {
 .instructionsContent ul {
     list-style-type: disc;
     padding-left: 20px;
+    margin-top: 5px;
 }
 
 .instructionsContent li {
@@ -123,13 +128,16 @@ body, html {
     background-color: #333; 
     border: none;
     border-radius: 20px;
-    padding: 10px 20px;
-    width: 150px;
+    padding: 5px 10px;
+    width: 190px;
     height: 40px;
-    font-size: 16px;
+    font-size: 18px;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 20px;
+    margin-right: 120px;
+    font-family: sans-serif;
 }
 
 #instructionsButton:hover {
