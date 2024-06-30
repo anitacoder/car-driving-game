@@ -104,13 +104,12 @@ function pressOff(e) {
 
 function pauseGame() {
     player.paused = true;
-    pausedScreen.classList.remove("hide");
+    pauseScreen.classList.remove("hide");
     console.log("Game Paused");
 }
 
 function resumeGame() {
     player.paused = false;
-    pausedScreen.classList.add("hide");
     console.log("Resume Game");
     window.requestAnimationFrame(playGame);
 
@@ -121,7 +120,7 @@ function endGame() {
     score.innerHTML = "Game Over<br> Score was " + player.score;
     startScreen.classList.remove("hide");
     banner.classList.remove("hide");
-    pausedScreen.classList.add("hide");
+    pauseScreen.classList.add("hide");
 }
 
 function start() {
