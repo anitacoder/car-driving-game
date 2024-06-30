@@ -1,4 +1,3 @@
-/* style.css */
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +7,7 @@
 body, html {
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Prevent scrollbars */
+    overflow: hidden; 
     background-color: skyblue;
 }
 
@@ -18,7 +17,7 @@ body, html {
 }
 
 .gameArea {
-    background-color: #16213e; /* Dark navy */
+    background-color: #16213e; 
     width: 400px;
     height: 100%;
     overflow: hidden;
@@ -54,17 +53,12 @@ body, html {
 }
 
 .score {
-    background-color: rgba(255, 255, 255, 0.5); /* Faded white */
-    color: black;
+    background-color: #16213e; 
+    color: #fca311; 
     height: 70px;
     text-align: center;
     font-size: 1.5em;
-    font-family: fantasy;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 10px;
-    border-radius: 5px;
+    font-family: 'Arial', sans-serif;
 }
 
 .startScreen {
@@ -85,7 +79,6 @@ body, html {
 .button {
     position: relative;
     display: inline-block;
-    margin-right: 70px;
 }
 
 .instructionsDropdown {
@@ -95,7 +88,7 @@ body, html {
     transform: translateX(-50%);
     width: 200px;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    background-color: rgba(255, 255, 255, 0.9); 
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 2;
@@ -113,7 +106,7 @@ body, html {
 .instructionsContent h1 {
     font-size: 1.2em;
     margin-bottom: 10px;
-    color: #333; /* Dark grey */
+    color: #333; 
 }
 
 .instructionsContent ul {
@@ -123,25 +116,32 @@ body, html {
 
 .instructionsContent li {
     margin-bottom: 5px;
-    color: #555; /* Medium grey */
+    color: #555; 
 }
 
-    #instructionsButton {
-        background-color: #ff6347;
-        border: none;
-        border-radius: 20px;
-        padding: 10px;
-        width: 150px;
-        font-size: 17px;
-        color: white;
-    }
+#instructionsButton {
+    background-color: #333; 
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    width: 150px;
+    height: 40px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#instructionsButton:hover {
+    background-color: #555; 
+}
 
 .cancelArea {
     text-align: center;
 }
 
 .cancelArea button {
-    background-color: #ff6347; /* Tomato */
+    background-color: #ff6347; 
     color: white;
     border: none;
     padding: 5px 10px;
@@ -150,12 +150,12 @@ body, html {
 }
 
 .Banner {
-    background-color: rgba(0, 128, 0, 0.8); /* Transparent green */
+    background-color: rgba(0, 128, 0, 0.8); 
     text-align: center;
     padding: 20px;
     color: white;
-    width: 100%; /* Full width of the viewport */
-    position: absolute; /* Position it absolutely */
-    top: 50%; /* Move it 50% down from the top */
-    transform: translateY(-50%); /* Center it vertically */
+    width: 100%; 
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
 }
