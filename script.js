@@ -4,7 +4,7 @@ const gameArea = document.querySelector(".gameArea");
 const banner = document.querySelector(".Banner");
 const pauseScreen = document.querySelector(".pauseScreen"); 
 const resumeScreen  = document.querySelector(".resumeScreen");
-let player = { speed: 5, score: 0 }; 
+let player = { speed: 5, score: 0, start: false, paused: false }; // Ensured all properties are initialized
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
 function moveLine() {
@@ -110,6 +110,7 @@ function pauseGame() {
 
 function resumeGame() {
     player.paused = false;
+    pauseScreen.classList.add("hide");
     console.log("Resume Game");
     window.requestAnimationFrame(playGame);
 }
