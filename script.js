@@ -1,7 +1,22 @@
+// script.js
+
+const instructionsButton = document.getElementById("instructionsButton");
+const instructionsDropdown = document.querySelector(".instructionsDropdown");
+
+instructionsButton.addEventListener("click", function() {
+    instructionsDropdown.classList.toggle("active");
+});
+
+const cancelInstructionsButton = document.getElementById("cancelInstructions");
+
+cancelInstructionsButton.addEventListener("click", function() {
+    instructionsDropdown.classList.remove("active");
+});
+
 const score = document.querySelector(".score");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
-let player = { speed: 5, score: 0}; // Initialize player with speed and starting position
+let player = { speed: 5, score: 0 }; // Initialize player with speed and starting position
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
 startScreen.addEventListener("click", start);
@@ -132,18 +147,3 @@ function randomColor() {
     }
     return "#" + c() + c() + c();
 }
-
-
-// script.js - Add JavaScript for button functionality
-const instructionsButton = document.getElementById("instructionsButton");
-const instructionsDropdown = document.querySelector(".instructionsDropdown");
-
-instructionsButton.addEventListener("click", function() {
-    instructionsDropdown.classList.toggle("active");
-});
-
-const cancelInstructionsButton = document.getElementById("cancelInstructions");
-
-cancelInstructionsButton.addEventListener("click", function() {
-    instructionsDropdown.classList.remove("active");
-});
