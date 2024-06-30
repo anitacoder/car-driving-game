@@ -54,7 +54,7 @@ function playGame() {
     moveEnemy(car);
     let road = gameArea.getBoundingClientRect();
 
-    if (player.start && player.paused) {
+    if (player.start && !player.paused) {
         if (keys.ArrowUp && player.y > road.top) {
             player.y -= player.speed;
         }
@@ -82,7 +82,14 @@ function playGame() {
 function pressOn(e) {
     e.preventDefault();
     keys[e.key] = true;
-    if(e.key === "") //Handle the space bar
+    if (e.key === " ") { //Handles space bar press
+        player.paused = !player.paused;
+        if (player.paused) {
+            pauseGame();
+        } else {
+            resumeGame();
+        }
+    } 
     console.log("on", e.key);
 }
 
@@ -90,6 +97,18 @@ function pressOff(e) {
     e.preventDefault();
     keys[e.key] = false;
     console.log("off", e.key);
+}
+
+function pauseGame() {
+    player.paused = true;
+    console.log("Game Paused");
+}
+
+function resumeGame() {
+    player.paused = false;
+    console.log("Resume Game");
+    window.requestAnimationFrame(playGame);
+
 }
 
 function endGame() {
