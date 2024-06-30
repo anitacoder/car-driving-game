@@ -110,6 +110,7 @@ function pauseGame() {
 
 function resumeGame() {
     player.paused = false;
+    pausedScreen.classList.add("hide");
     console.log("Resume Game");
     window.requestAnimationFrame(playGame);
 
