@@ -199,11 +199,11 @@ body, html {
 }
 
 .cancelArea button {
-    color: #5555;
+    color: #555;
     border: none;
     cursor: pointer;
-    font-size: 0.8em;
-    margin-left: 175px;
+    font-size: 0.9em;
+    margin-left: 345px;
     background-color: transparent;
 }
 
