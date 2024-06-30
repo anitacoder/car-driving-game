@@ -76,3 +76,7 @@ body, html {
     z-index: 1;
     font-family: sans-serif;
 }
+
+.button {
+    display: flex;
+}
