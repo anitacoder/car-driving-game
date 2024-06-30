@@ -8,7 +8,7 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden; /* Prevent scrollbars */
-    background-color: skyblue;
+    background-color: #1a1a2e; /* Dark blue background */
 }
 
 .game {
@@ -17,32 +17,31 @@ body, html {
 }
 
 .gameArea {
-    background-color: black;
+    background-color: #16213e; /* Dark navy */
     width: 400px;
     height: 100%;
     overflow: hidden;
     position: relative;
-    margin:  auto;
+    margin: auto;
 }
 
-    .car, .enemy {
-        position: absolute;
-        bottom: 100px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 50px; 
-        height: 100px;
-        background-color: white;
-        background-image: url('../Images/car2.png'); 
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        text-align: center;
-        font-size: 1.7em;
-        line-height: 112px;
-        color: white;
-    }
-
+.car, .enemy {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px; 
+    height: 100px;
+    background-color: #fca311; /* Bright orange */
+    background-image: url('../Images/car2.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    font-size: 1.7em;
+    line-height: 112px;
+    color: white;
+}
 
 .line {
     position: absolute;
@@ -50,31 +49,31 @@ body, html {
     width: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: white;
+    background-color: #8d99ae; /* Light grayish blue */
 }
 
 .score {
-    background-color: black;
-    color: white;
+    background-color: #16213e; /* Dark navy */
+    color: #fca311; /* Bright orange */
     height: 70px;
     text-align: center;
     font-size: 1.5em;
-    font-family: fantasy;
+    font-family: 'Arial', sans-serif;
 }
 
 .startScreen {
     text-align: center;
-    border: 1px solid red;
+    border: 1px solid #e94560; /* Coral red */
     padding: 15px;
     margin: auto;
     width: 50%;
     position: absolute;
-    background-color: red;
+    background-color: #e94560; /* Coral red */
     left: 25%;
     top: 100px;
     color: white;
     z-index: 1;
-    font-family: sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 .button {
@@ -83,12 +82,12 @@ body, html {
 }
 
 .Banner {
-    background-color: blueviolet;
+    background-color: rgba(76, 175, 80, 0.8); /* Transparent green */
     text-align: center;
     padding: 20px;
-    color: white;
-    width: 100%; /* Full width of the viewport */
-    position: absolute; /* Position it absolutely */
-    top: 50%; /* Move it 50% down from the top */
-    transform: translateY(-50%); /* Center it vertically */
+    color: #ffffff; /* White */
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
