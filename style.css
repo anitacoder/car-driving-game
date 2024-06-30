@@ -197,7 +197,6 @@ body, html {
     font-size: 18px;
 }
 
-
 .cancelArea {
     display: inline-block; /* Ensure it's displayed inline */
     margin-left: 10px; /* Adjust margin as needed */
@@ -213,15 +212,21 @@ body, html {
 }
 
 .Banner {
-    background-color: rgba(0, 128, 0, 0.8); 
-    text-align: center;
-    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
     color: white;
-    width: 100%; 
-    position: absolute; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    height: 199px;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 10px;
+    display: none; /* Initially hidden */
+}
+
+.Banner.show {
+    display: block;
 }
 
 .pauseScreen {

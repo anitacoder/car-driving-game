@@ -3,7 +3,7 @@ const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
 const banner = document.querySelector(".Banner");
 const pauseScreen = document.querySelector(".pausedScreen"); 
-let player = { speed: 5, score: 0, start: false, paused: false }; // Ensured all properties are initialized
+let player = { speed: 5, score: 0, start: false, paused: false };
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
 function moveLine() {
@@ -47,7 +47,7 @@ function moveEnemy(car) {
 }
 
 let lastScoreUpdateTime = 0;
-const scoreUpdateInterval = 790;
+const scoreUpdateInterval = 820;
 
 function playGame() {
     let currentTime = Date.now();
@@ -84,7 +84,7 @@ function playGame() {
 function pressOn(e) {
     e.preventDefault();
     keys[e.key] = true;
-    if (e.key === " ") { //Handles space bar press
+    if (e.key === " ") {
         player.paused = !player.paused;
         if (player.paused) {
             pauseGame();
@@ -116,10 +116,9 @@ function resumeGame() {
 
 function endGame() {
     player.start = false;
-    score.innerHTML = "Game Over<br> Score was " + player.score;
-    startScreen.classList.remove("hide");
-    banner.classList.remove("hide");
+    banner.innerHTML = `Game Over<br>Score was ${player.score}`;
     pauseScreen.classList.add("hide");
+    banner.classList.remove("hide");
 }
 
 function start() {
@@ -133,7 +132,7 @@ function start() {
         let div = document.createElement("div");
         div.classList.add("line");
         div.y = x * 150;
-        div.style.top = (x*150) + "px";
+        div.style.top = (x * 150) + "px";
         gameArea.appendChild(div);
     }
     
@@ -185,5 +184,5 @@ cancelInstructionsButton.addEventListener("click", function() {
     instructionsDropdown.classList.remove("active");
 });
 
-document.addEventListener("keydown", pressOn); // Listen for key press
-document.addEventListener("keyup", pressOff); // Listen for key release
+document.addEventListener("keydown", pressOn); 
+document.addEventListener("keyup", pressOff);
