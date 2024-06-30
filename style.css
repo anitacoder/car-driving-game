@@ -171,6 +171,10 @@ body, html {
     font-size: 0.8em;
 }
 
+.header {
+    display: flex;
+}
+
 .Banner {
     background-color: rgba(0, 128, 0, 0.8); 
     text-align: center;
