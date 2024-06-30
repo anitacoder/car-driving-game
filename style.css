@@ -1,3 +1,4 @@
+/* style.css */
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +9,7 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden; /* Prevent scrollbars */
-    background-color: #1a1a2e; /* Dark blue background */
+    background-color: skyblue;
 }
 
 .game {
@@ -32,7 +33,7 @@ body, html {
     transform: translateX(-50%);
     width: 50px; 
     height: 100px;
-    background-color: #fca311; /* Bright orange */
+    background-color: white;
     background-image: url('../Images/car2.png'); 
     background-size: contain;
     background-repeat: no-repeat;
@@ -49,45 +50,101 @@ body, html {
     width: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #8d99ae; /* Light grayish blue */
+    background-color: white;
 }
 
 .score {
-    background-color: #16213e; /* Dark navy */
-    color: #fca311; /* Bright orange */
+    background-color: rgba(255, 255, 255, 0.5); /* Faded white */
+    color: black;
     height: 70px;
     text-align: center;
     font-size: 1.5em;
-    font-family: 'Arial', sans-serif;
+    font-family: fantasy;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .startScreen {
     text-align: center;
-    border: 1px solid #e94560; /* Coral red */
+    border: 1px solid red;
     padding: 15px;
     margin: auto;
     width: 50%;
     position: absolute;
-    background-color: #e94560; /* Coral red */
+    background-color: red;
     left: 25%;
     top: 100px;
     color: white;
     z-index: 1;
-    font-family: 'Arial', sans-serif;
+    font-family: sans-serif;
 }
 
 .button {
-    display: flex;
-    justify-content: center;
+    position: relative;
+    display: inline-block;
+}
+
+.instructionsDropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    display: none;
+}
+
+.instructionsDropdown.active {
+    display: block;
+}
+
+.instructionsContent {
+    margin-bottom: 10px;
+}
+
+.instructionsContent h1 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333; /* Dark grey */
+}
+
+.instructionsContent ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.instructionsContent li {
+    margin-bottom: 5px;
+    color: #555; /* Medium grey */
+}
+
+.cancelArea {
+    text-align: center;
+}
+
+.cancelArea button {
+    background-color: #ff6347; /* Tomato */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8em;
 }
 
 .Banner {
-    background-color: rgba(76, 175, 80, 0.8); /* Transparent green */
+    background-color: rgba(0, 128, 0, 0.8); /* Transparent green */
     text-align: center;
     padding: 20px;
-    color: #ffffff; /* White */
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    color: white;
+    width: 100%; /* Full width of the viewport */
+    position: absolute; /* Position it absolutely */
+    top: 50%; /* Move it 50% down from the top */
+    transform: translateY(-50%); /* Center it vertically */
 }
