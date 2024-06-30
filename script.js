@@ -1,13 +1,12 @@
+// script.js
+
 const score = document.querySelector(".score");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
-let player = { speed: 5, score: 0}; // Initialize player with speed and starting position
+let player = { speed: 5, score: 0 }; // Initialize player with speed and starting position
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
-startScreen.addEventListener("click", start);
-document.addEventListener("keydown", pressOn);
-document.addEventListener("keyup", pressOff);
-
+// Function to move lines on the game area
 function moveLine() {
     let lines = document.querySelectorAll(".line");
     lines.forEach(function(item){
@@ -19,6 +18,7 @@ function moveLine() {
     });
 }
 
+// Function to check collision between two elements
 function isCollide(a, b) {
     let aRect = a.getBoundingClientRect();
     let bRect = b.getBoundingClientRect();
@@ -31,6 +31,7 @@ function isCollide(a, b) {
     );
 }
 
+// Function to move enemies on the game area
 function moveEnemy(car) {
     let enemies = document.querySelectorAll(".enemy");
     enemies.forEach(function(item){
@@ -47,6 +48,7 @@ function moveEnemy(car) {
     });
 }
 
+// Function to play the game
 function playGame() {
     let car = document.querySelector(".car");
     moveLine();
@@ -74,24 +76,28 @@ function playGame() {
     }
 }
 
+// Event listener for key press down
 function pressOn(e) {
     e.preventDefault();
     keys[e.key] = true;
     console.log("on", e.key);
 }
 
+// Event listener for key press up
 function pressOff(e) {
     e.preventDefault();
     keys[e.key] = false;
     console.log("off", e.key);
 }
 
+// Function to end the game
 function endGame() {
     player.start = false;
     score.innerHTML = "Game Over<br> Score was " + player.score;
     startScreen.classList.remove("hide");
 }
 
+// Function to start the game
 function start() {
     startScreen.classList.add("hide");
     gameArea.innerHTML = "";
@@ -125,6 +131,7 @@ function start() {
     }
 }
 
+// Function to generate random color
 function randomColor() {
     function c() {
         let hex = Math.floor(Math.random() * 256).toString(16);
@@ -133,6 +140,9 @@ function randomColor() {
     return "#" + c() + c() + c();
 }
 
+// Event listener for Start Game button
+const startGameButton = document.getElementById("startGameButton");
+startGameButton.addEventListener("click", start);
 
 // script.js - Add JavaScript for button functionality
 const instructionsButton = document.getElementById("instructionsButton");
