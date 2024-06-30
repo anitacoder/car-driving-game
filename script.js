@@ -2,8 +2,7 @@ const score = document.querySelector(".score");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
 const banner = document.querySelector(".Banner");
-const pauseScreen = document.querySelector(".pauseScreen"); 
-const resumeScreen  = document.querySelector(".resumeScreen");
+const pauseScreen = document.querySelector(".pausedScreen"); 
 let player = { speed: 5, score: 0, start: false, paused: false }; // Ensured all properties are initialized
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
