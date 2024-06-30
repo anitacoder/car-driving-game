@@ -85,6 +85,7 @@ body, html {
 .button {
     position: relative;
     display: inline-block;
+    margin-right: 70px;
 }
 
 .instructionsDropdown {
@@ -124,6 +125,16 @@ body, html {
     margin-bottom: 5px;
     color: #555; /* Medium grey */
 }
+
+    #instructionsButton {
+        background-color: #ff6347;
+        border: none;
+        border-radius: 20px;
+        padding: 10px;
+        width: 150px;
+        font-size: 17px;
+        color: white;
+    }
 
 .cancelArea {
     text-align: center;
