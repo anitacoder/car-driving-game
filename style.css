@@ -158,7 +158,8 @@ body, html {
 }
 
 .cancelArea {
-    text-align: center;
+    display: inline-block; /* Ensure it's displayed inline */
+    margin-left: 10px; /* Adjust margin as needed */
 }
 
 .cancelArea button {
