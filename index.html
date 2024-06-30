@@ -10,14 +10,26 @@
     <div class="score"></div>
     <div class="game">
         <div class="startScreen">Press to start<br>Arrow keys to move<br>if you hit a car you will lose</div>
-        <div class="gameArea ">  
+        <div class="gameArea">  
         </div>
     </div>
     <div class="Banner">
         <h1>Rider Race</h1>
         <div class="button">
-            <button>Instructions</button>
-            <button>Start</button>
+            <button id="instructionsButton">Instructions</button>
+            <div class="instructionsDropdown">
+                <div class="instructionsContent">
+                    <p>Instructions:</p>
+                    <ul>
+                        <li>Use Arrow keys to move your car.</li>
+                        <li>Avoid collisions with other cars.</li>
+                        <li>Your score increases as you progress.</li>
+                    </ul>
+                </div>
+                <div class="cancelArea">
+                    <button id="cancelInstructions">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
