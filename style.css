@@ -163,9 +163,8 @@ body, html {
 }
 
 .cancelArea button {
-    color: white;
+    color: #5555;
     border: none;
-    padding: 5px 10px;
     cursor: pointer;
     font-size: 0.8em;
     margin-left: 175px;
