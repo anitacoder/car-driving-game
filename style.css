@@ -84,9 +84,9 @@ body, html {
 .instructionsDropdown {
     position: absolute;
     top: 105%;
-    left: 30%;
+    left: 25%;
     transform: translateX(-50%);
-    width: 260px;
+    width: 290px;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.9); 
     border: 1px solid #ccc;
@@ -137,7 +137,7 @@ body, html {
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 20px;
-    margin-right: 120px;
+    margin-right: 190px;
     font-family: sans-serif;
 }
 
@@ -146,15 +146,17 @@ body, html {
 }
 
 .one {
-    margin-right: 120px;
+    margin-right: 150px;
 }
 
 .two {
-    margin-right: 15px;
+    margin-right: 2px;
 }
 
 .three {
-    margin-right: 15px;
+    margin-right: 80px;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
 }
 
 .cancelArea {
@@ -168,6 +170,7 @@ body, html {
     cursor: pointer;
     font-size: 0.8em;
     margin-left: 175px;
+    background-color: transparent;
 }
 
 .Banner {
