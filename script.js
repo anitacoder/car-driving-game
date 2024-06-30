@@ -1,7 +1,9 @@
 const score = document.querySelector(".score");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
-const banner = document.querySelector(".Banner")
+const banner = document.querySelector(".Banner");
+const pausedScreen  = document.querySelector(".pausedScreen");
+const resumeScreen  = document.querySelector(".resumeScreen");
 let player = { speed: 5, score: 0 }; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
@@ -102,6 +104,7 @@ function pressOff(e) {
 
 function pauseGame() {
     player.paused = true;
+    pausedScreen.classList.remove("hide");
     console.log("Game Paused");
 }
 
@@ -117,6 +120,7 @@ function endGame() {
     score.innerHTML = "Game Over<br> Score was " + player.score;
     startScreen.classList.remove("hide");
     banner.classList.remove("hide");
+    pausedScreen.classList.add("hide");
 }
 
 function start() {
