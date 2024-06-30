@@ -87,7 +87,7 @@ body, html {
     top: 105%;
     left: 25%;
     transform: translateX(-50%);
-    width: 290px;
+    width: 465px;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.9); 
     border: 1px solid #ccc;
@@ -167,18 +167,34 @@ body, html {
 }
 
 .one {
-    margin-right: 150px;
-}
-
-.two {
-    margin-right: 2px;
-}
-
-.three {
-    margin-right: 80px;
+    margin-right: 320px;
+    font-size: 18px;
     white-space: nowrap; 
     text-overflow: ellipsis;
 }
+
+.two {
+    margin-right: 150px;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    font-size: 18px;
+}
+
+.three {
+    margin-right: 190px;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    font-size: 18px;
+}
+
+
+.four {
+    margin-right: 190px;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    font-size: 18px;
+}
+
 
 .cancelArea {
     display: inline-block; /* Ensure it's displayed inline */
