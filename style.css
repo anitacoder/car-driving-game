@@ -78,6 +78,7 @@ body, html {
     position: relative;
     display: inline-block;
     margin-left: 200px;
+    margin-top: 20px;
 }
 
 .instructionsDropdown {
@@ -216,4 +217,5 @@ body, html {
     position: absolute; 
     top: 50%; 
     transform: translateY(-50%); 
+    height: 199px;
 }
