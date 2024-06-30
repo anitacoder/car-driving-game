@@ -1,6 +1,7 @@
 const score = document.querySelector(".score");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
+const banner = document.querySelector(".Banner")
 let player = { speed: 5, score: 0 }; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
@@ -115,12 +116,15 @@ function endGame() {
     player.start = false;
     score.innerHTML = "Game Over<br> Score was " + player.score;
     startScreen.classList.remove("hide");
+    banner.classList.remove("hide");
 }
 
 function start() {
     startScreen.classList.add("hide");
+    banner.classList.add("hide");
     gameArea.innerHTML = "";
     player.start = true;
+    player.paused = false;
     player.score = 0;
     for(let x = 0; x < 10; x++) {
         let div = document.createElement("div");
@@ -161,6 +165,7 @@ function randomColor() {
 const startGameButton = document.getElementById("startGameButton");
 startGameButton.addEventListener("click", function() {
     startScreen.classList.add("hide");
+    banner.classList.add("hide");
     start();
 });
 
