@@ -1,18 +1,19 @@
+/* Reset and basic styling */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.hide {
-    display: none;
-}
-
 body, html {
     width: 100%;
     height: 100%;
-    overflow: hidden; 
+    overflow: hidden;
     background-color: skyblue;
+}
+
+.hide {
+    display: none;
 }
 
 .game {
@@ -21,7 +22,7 @@ body, html {
 }
 
 .gameArea {
-    background-color: #16213e; 
+    background-color: #16213e;
     width: 400px;
     height: 100%;
     overflow: hidden;
@@ -34,31 +35,26 @@ body, html {
     bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px; 
+    width: 50px;
     height: 100px;
     background-color: white;
-    background-image: url('Images/car2.png'); 
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    text-align: center;
-    font-size: 1.7em;
-    line-height: 112px;
-    color: white;
+    background-image: url('../Images/car2.png');
+    background-size: cover;
+    z-index: 2;
 }
 
 .line {
+    width: 5px;
+    height: 50px;
+    background-color: white;
     position: absolute;
-    height: 100px;
-    width: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: white;
 }
 
 .score {
-    background-color: #16213e; 
-    color: #fca311; 
+    background-color: #16213e;
+    color: #fca311;
     height: 70px;
     text-align: center;
     font-size: 1.5em;
@@ -82,28 +78,26 @@ body, html {
     position: relative;
     display: inline-block;
     margin-left: 200px;
-    margin-top: 20px;
 }
 
 .instructionsDropdown {
-    position: absolute;
-    top: 105%;
-    left: 25%;
-    transform: translateX(-50%);
-    width: 465px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.9); 
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 2;
     display: none;
+    position: absolute;
+    top: 110%; 
+    left: 30%;
+    transform: translateX(-50%);
+    width: 440px; 
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif; 
     border-radius: 20px;
-    font-family: sans-serif;
-    font-weight: bold;
-    color: black;
 }
 
-.instructionsDropdown.active {
+/* Show instructions dropdown when button is hovered */
+#instructionsButton:hover + .instructionsDropdown {
     display: block;
 }
 
@@ -126,7 +120,6 @@ body, html {
 .instructionsContent li {
     margin-bottom: 5px;
     color: #555;
- 
 }
 
 #instructionsButton {
@@ -150,7 +143,7 @@ body, html {
 }
 
 .start {
-    background-color: #333; 
+    background-color: #333;
     border: none;
     border-radius: 20px;
     padding: 5px 10px;
@@ -166,7 +159,7 @@ body, html {
 }
 
 .start:hover {
-    background-color: #555; 
+    background-color: #555;
 }
 
 .one {
@@ -198,48 +191,58 @@ body, html {
 }
 
 .cancelArea {
-    display: inline-block; /* Ensure it's displayed inline */
-    margin-left: 10px; /* Adjust margin as needed */
+    display: inline-block;
+    margin-left: 10px;
 }
 
 .cancelArea button {
-    color: #555;
+    color: #5555;
     border: none;
     cursor: pointer;
-    font-size: 0.9em;
-    margin-left: 345px;
+    font-size: 0.8em;
+    margin-left: 175px;
     background-color: transparent;
 }
 
 .Banner {
+    background-color: rgba(0, 128, 0, 0.8);
+    text-align: center;
+    padding: 20px;
+    color: white;
+    width: 100%;
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    height: 28%;
+}
+
+#gameOverMessage {
+    font-size: 26px;
+    text-align: center;
+    color: black;
+    font-family: sans-serif;
+}
+
+.pausedScreen {
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
     color: white;
     padding: 20px;
-    text-align: center;
-    font-size: 24px;
     border-radius: 10px;
-    display: none; /* Initially hidden */
+    z-index: 1000; /* Ensure it's above other elements */
+    text-align: center;
 }
 
-.Banner.show {
-    display: block;
+.pausedScreen .pauseMessage {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.pauseScreen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 48px;
-    color: red;
-    z-index: 1000;
-    display: none;
-}
-
-.pauseScreen.hide {
-    display: none;
+.gameName {
+    font-family: sans-serif;
 }

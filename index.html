@@ -12,10 +12,16 @@
     <div class="game">
         <div class="startScreen"></div>
         <div class="gameArea"></div>
-        <div class="pausedScreen hide">Paused</div> 
+        <div class="pausedScreen hide">
+            <div class="pauseMessage"></div>
+        </div>    
+        <div class="ResumeScreen hide">
+            <div class="ResumeMessage"></div>
+        </div>    
     </div>
-    <div class="Banner hide" id="banner">
-        <h1>Rider Race</h1>
+    <div class="Banner" id="banner">
+        <h1 class="gameName">Rider Race</h1>
+        <div id="gameOverMessage"></div>
         <div class="button">
             <button id="instructionsButton">Instructions</button>
             <div class="instructionsDropdown">
@@ -27,14 +33,12 @@
                         <li class="three">If you hit a car you will lose</li>
                         <li class="four">Press the space bar to pause and resume the game</li>
                     </ul>
-                    <div class="cancelArea">
-                        <button id="cancelInstructions">Cancel</button>
-                    </div>
                 </div>
             </div>
         </div>
         <button class="start" id="startGameButton">Start Game</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
