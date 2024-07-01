@@ -3,6 +3,8 @@ const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
 const pauseScreen = document.querySelector(".pausedScreen");
 const pauseMessage = pauseScreen.querySelector(".pauseMessage");
+const resumeScreen = document.querySelector(".ResumeScreen");
+const resumeMessage = pauseScreen.querySelector(".ResumeMessage");
 const banner = document.querySelector("#banner");
 let player = { speed: 5, score: 0, HighScore: 0 };
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
@@ -87,7 +89,6 @@ function pressOn(e) {
     e.preventDefault();
     keys[e.key] = true;
 
-    // Toggle pause on space bar press
     if (e.key === " ") {
         if (player.paused) {
             resumeGame();
@@ -108,25 +109,30 @@ function pressOff(e) {
 
 function pauseGame() {
     player.paused = true;
-    pauseScreen.classList.remove("hide"); // Show the pause screen
+    pauseScreen.classList.remove("hide"); 
     const pauseMessage = document.querySelector(".pauseMessage");
     if (pauseMessage) {
-        pauseMessage.textContent = "Game Paused"; // Ensure text content is set correctly
+        pauseMessage.textContent = "Game Paused"; 
     }
     console.log("Game Paused");
 }
-
 function resumeGame() {
     player.paused = false;
     pauseScreen.classList.add("hide"); // Hide the pause screen
     const pauseMessage = document.querySelector(".pauseMessage");
+    const resumeMessage = document.querySelector(".ResumeMessage");
+    
     if (pauseMessage) {
-        pauseMessage.textContent = "Game Paused"; // Ensure text content is set correctly
+        pauseMessage.classList.add("hide"); // Hide the pause message
     }
-    console.log("Game Paused");
-    window.requestAnimationFrame(playGame); // Resume game animation loop
+    if (resumeMessage) {
+        resumeMessage.textContent = "RESUMED"; // Show the resumed message
+        resumeMessage.classList.remove("hide"); // Show the resumed message
+    }
+    
+    console.log("RESUMED");
+    window.requestAnimationFrame(playGame);
 }
-
 
 function endGame() {
     player.start = false;
@@ -141,9 +147,9 @@ function endGame() {
 }
 
 function start() {
-    banner.classList.add("hide"); // Hide the banner
+    banner.classList.add("hide"); 
     startScreen.classList.add("hide");
-    score.classList.remove("hide"); // Show the score
+    score.classList.remove("hide"); 
     gameArea.innerHTML = "";
     player.start = true;
     player.score = 0;
