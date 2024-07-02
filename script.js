@@ -1,11 +1,11 @@
 const score = document.querySelector(".score");
-const level = document.querySelector(".Level");
+const levelDisplay = document.querySelector(".Level");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
 const pauseScreen = document.querySelector(".pausedScreen");
 const pauseMessage = document.querySelector(".pauseMessage");
 const banner = document.querySelector("#banner");
-let player = { speed: 5, score: 0, HighScore: 0, paused: false }; // Added `paused` property
+let player = { speed: 5, score: 0, HighScore: 0,level: 1, paused: false }; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
 function moveLine() {
@@ -77,10 +77,19 @@ function playGame() {
             score.innerHTML = "Score: " + player.score;
             lastScoreUpdateTime = currentTime;
         }
+        if(player.level === 1 && player.score >= 40){
+            transitionToLevelTwo();
+        }
         window.requestAnimationFrame(playGame);
         car.style.left = player.x + 'px';
         car.style.top = player.y + 'px';
     }
+}
+
+function transitionToLevelTwo() {
+    player.level = 2;
+    levelDisplay.innerHTML = "Level: " + player.level;
+    console.log("Level Two")
 }
 
 function pressOn(e) {
@@ -157,6 +166,8 @@ function start() {
     gameArea.innerHTML = "";
     player.start = true;
     player.score = 0;
+    player.level = 1
+    levelDisplay.innerHTML = "Level: " + player.level; 
     for (let x = 0; x < 20; x++) {
         let div = document.createElement("div");
         div.classList.add("line");

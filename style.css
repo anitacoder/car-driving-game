@@ -23,7 +23,7 @@ body, html {
 
 .gameArea {
     background-color: #16213e;
-    width: 400px;
+    width: 800px;
     height: 100%;
     overflow: hidden;
     position: relative;
