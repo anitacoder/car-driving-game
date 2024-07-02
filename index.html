@@ -8,14 +8,28 @@
     <title>Car Driving Game</title>
 </head>
 <body>
-    <div class="score"></div>
+    <div class="score-level-container">
+        <div class="score">
+            Score: 0
+        </div>
+        <div class="Level">
+            Level: 1
+        </div>
+        <div class="pause-controls">
+            <button id="pauseButton" class="controlButton">
+                <i class="fas fa-pause"></i>
+            </button>            
+            <button id="resumeButton" class="controlButton hide">
+                <i class="fa-solid fa-play"></i>
+            </button>
+        </div>
+    </div>
     <div class="game">
         <div class="startScreen"></div>
         <div class="gameArea"></div>
         <div class="pausedScreen hide">
             <div class="pauseMessage"></div>
-            <div class="ResumeMessage"></div>
-        </div>     
+        </div>        
     </div>
     <div class="Banner" id="banner">
         <h1 class="gameName">Rider Race</h1>
@@ -36,7 +50,6 @@
         </div>
         <button class="start" id="startGameButton">Start Game</button>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

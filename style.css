@@ -52,13 +52,37 @@ body, html {
     transform: translateX(-50%);
 }
 
+.score-level-container {
+    display: flex;
+    background-color: #16213e;
+    color: #fca311;
+    height: 70px;
+    font-family: 'Arial', sans-serif;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
 .score {
     background-color: #16213e;
     color: #fca311;
     height: 70px;
+    font-size: 24px;
+    font-family: sans-serif;
+    line-height: 70px;
+    padding-left: 20px;
+}
+
+.Level {
+    background-color: #16213e;
+    color: #fca311;
+    height: 70px;
+    font-size: 24px;
+    font-family: sans-serif;
     text-align: center;
-    font-size: 1.5em;
-    font-family: 'Arial', sans-serif;
+    line-height: 50px;
+    padding-top: 10px;
+    padding-left: 20px;
 }
 
 .startScreen {
@@ -243,27 +267,20 @@ body, html {
     text-transform: uppercase;
 }
 
-.ResumeScreen {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8); 
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 1000;
-    text-align: center;
-    animation: fadeOut 2s forwards;
-
-}
-
-.ResumeScreen .ResumeMessage {
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
 .gameName {
     font-family: sans-serif;
 }
+
+.pause-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fca311;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.pause-icon:hover {
+    opacity: 0.7;
+}
+

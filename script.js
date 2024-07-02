@@ -1,14 +1,12 @@
 const score = document.querySelector(".score");
+const level = document.querySelector(".Level");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
 const pauseScreen = document.querySelector(".pausedScreen");
-const pauseMessage = pauseScreen.querySelector(".pauseMessage");
-const resumeScreen = document.querySelector(".ResumeScreen");
-const resumeMessage = pauseScreen.querySelector(".ResumeMessage");
+const pauseMessage = document.querySelector(".pauseMessage");
 const banner = document.querySelector("#banner");
-let player = { speed: 5, score: 0, HighScore: 0 };
+let player = { speed: 5, score: 0, HighScore: 0, paused: false }; // Added `paused` property
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
-
 
 function moveLine() {
     let lines = document.querySelectorAll(".line");
@@ -89,17 +87,15 @@ function pressOn(e) {
     e.preventDefault();
     keys[e.key] = true;
 
-    if (e.key === " ") {
+    if (player.start && e.key === " ") {
         if (player.paused) {
             resumeGame();
         } else {
             pauseGame();
         }
     }
-
     console.log("on", e.key);
 }
-
 
 function pressOff(e) {
     e.preventDefault();
@@ -107,43 +103,51 @@ function pressOff(e) {
     console.log("off", e.key);
 }
 
+const pauseButton = document.getElementById('pauseButton');
+const resumeButton = document.getElementById('resumeButton');
+
+pauseButton.addEventListener('click', function() {
+    if (!player.paused) {
+        pauseGame();
+    }
+});
+
+resumeButton.addEventListener('click', function() {
+    if (player.paused) {
+        resumeGame();
+    }
+});
+
 function pauseGame() {
     player.paused = true;
     pauseScreen.classList.remove("hide"); 
+    pauseButton.classList.add("hide");
+    resumeButton.classList.remove("hide");
     const pauseMessage = document.querySelector(".pauseMessage");
     if (pauseMessage) {
-        pauseMessage.textContent = "Game Paused"; 
+        pauseMessage.textContent = "Paused"; 
     }
     console.log("Game Paused");
 }
+
 function resumeGame() {
     player.paused = false;
-    pauseScreen.classList.add("hide"); // Hide the pause screen
-    const pauseMessage = document.querySelector(".pauseMessage");
-    const resumeMessage = document.querySelector(".ResumeMessage");
-    
-    if (pauseMessage) {
-        pauseMessage.classList.add("hide"); // Hide the pause message
-    }
-    if (resumeMessage) {
-        resumeMessage.textContent = "RESUMED"; // Show the resumed message
-        resumeMessage.classList.remove("hide"); // Show the resumed message
-    }
-    
-    console.log("RESUMED");
-    window.requestAnimationFrame(playGame);
+    pauseScreen.classList.add("hide"); 
+    resumeButton.classList.add("hide");
+    pauseButton.classList.remove("hide");
+    console.log("Resume Game");
+    window.requestAnimationFrame(playGame); 
 }
 
 function endGame() {
     player.start = false;
     score.classList.add("hide");
-    if(player.score > player.HighScore) {
+    if (player.score > player.HighScore) {
         player.HighScore = player.score;
     }
     const gameOverMessage = document.getElementById("gameOverMessage");
     gameOverMessage.innerHTML = `Game Over<br> Score: ${player.score} <br>High Score : ${player.HighScore}`;
     banner.classList.remove("hide"); // Hide the banner
-
 }
 
 function start() {
@@ -181,6 +185,7 @@ function start() {
         gameArea.appendChild(enemy);
     }
 }
+
 function randomColor() {
     function c() {
         let hex = Math.floor(Math.random() * 256).toString(16);
@@ -197,7 +202,5 @@ startGameButton.addEventListener("click", function() {
     start();
 });
 
-
 document.addEventListener("keydown", pressOn);
 document.addEventListener("keyup", pressOff);
-
