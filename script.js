@@ -5,7 +5,7 @@ const gameArea = document.querySelector(".gameArea");
 const pauseScreen = document.querySelector(".pausedScreen");
 const pauseMessage = document.querySelector(".pauseMessage");
 const banner = document.querySelector("#banner");
-let player = { speed: 5, score: 0, HighScore: 0,level: 1, paused: false }; 
+let player = { speed: 5, score: 0, HighScore: 0,level: 1, paused: false, x: 0, y: 0}; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
 const linePositions = [
@@ -34,7 +34,7 @@ function moveLines() {
             item.y = -150;
         }
         item.y += player.speed;
-        item.style.top = item.y + "px";
+        item.style.top = Math.floor(item.y) + "px"; 
     });
 }
 
@@ -45,7 +45,7 @@ function MoveLines() {
             item.y = -150;
         }
         item.y += player.speed;
-        item.style.top = item.y + "px";
+        item.style.top = Math.floor(item.y) + "px"; 
     });
 }
 
@@ -105,7 +105,7 @@ function moveEnemy(car) {
             item.style.backgroundColor = randomColor();
         }
         item.y += player.speed;
-        item.style.top = item.y + "px";
+        item.style.top = Math.floor(item.y) + "px"; 
     });
 }
 
@@ -114,7 +114,6 @@ let lastScoreUpdateTime = 0;
 const scoreUpdateInterval = 290;
 
 function playGame() {
-    let currentTime = Date.now();
     let car = document.querySelector(".car");
     moveLine();
     moveLines();
@@ -126,23 +125,31 @@ function playGame() {
     if (player.start && !player.paused) {
         if (keys.ArrowUp && player.y > road.top) {
             player.y -= player.speed;
+            updateScore();
         }
         if (keys.ArrowDown && player.y < road.bottom - 150) {
             player.y += player.speed;
+            updateScore();
         }
         if (keys.ArrowLeft && player.x > car.offsetWidth / 2) {
             player.x -= player.speed;
+            updateScore();
         }
         if (keys.ArrowRight && player.x < (road.width - car.offsetWidth / 2)) {
             if (player.x + car.offsetWidth / 2 < line3.left || player.x - car.offsetWidth / 2 > line3.right) {
                 player.x += player.speed;
+                updateScore();
             }       
      }
 
-        if (currentTime - lastScoreUpdateTime >= scoreUpdateInterval) {
-            player.score++;
-            score.innerHTML = "Score: " + player.score;
-            lastScoreUpdateTime = currentTime;
+         function updateScore() {
+            let currentTime = Date.now();
+            if (currentTime - lastScoreUpdateTime >= scoreUpdateInterval) {
+                player.score++;
+                score.innerHTML = "Score: " + player.score;
+                lastScoreUpdateTime = currentTime;
+            
+            }
         }
         if(player.level === 1 && player.score >= 50){
             transitionToLevelTwo();
@@ -150,9 +157,9 @@ function playGame() {
         if(player.level === 2 && player.score >= 100){
             transitionToLevelThree();
         }
-        window.requestAnimationFrame(playGame);
         car.style.left = player.x + 'px';
         car.style.top = player.y + 'px';
+        window.requestAnimationFrame(playGame);
     }
 }
 
@@ -177,13 +184,11 @@ function pressOn(e) {
             pauseGame();
         }
     }
-    console.log("on", e.key);
 }
 
 function pressOff(e) {
     e.preventDefault();
     keys[e.key] = false;
-    console.log("off", e.key);
 }
 
 const pauseButton = document.getElementById('pauseButton');
@@ -243,7 +248,7 @@ function start() {
     player.level = 1;
     player.speed += 1;
     levelDisplay.innerHTML = "Level: " + player.level; 
-    for (let x = 0; x < 20; x++) {
+    for (let x = 0; x < 10; x++) {
         let div = document.createElement("div");
         div.classList.add("line");
         div.y = x * 150;
@@ -253,7 +258,7 @@ function start() {
         gameArea.appendChild(div);
     }
 
-    for(let x = 0; x < 20; x++) {
+    for(let x = 0; x < 10; x++) {
         let divs = document.createElement("div");
         divs.classList.add("line2");
         divs.y = x * 150;
@@ -264,7 +269,7 @@ function start() {
     }
 
 
-    for(let x = 0; x < 20; x++) {
+    for(let x = 0; x < 10; x++) {
         let dives = document.createElement("div");
         dives.classList.add("line3");
         dives.y = x * 150;
