@@ -27,7 +27,7 @@ function moveLine() {
     });
 }
 
-function moveline() {
+function moveLines() {
     let line = document.querySelectorAll(".line2");
     line.forEach(function(item) {
         if (item.y >= gameArea.offsetHeight) {
@@ -100,7 +100,7 @@ function moveEnemy(car) {
                 }
             }
 
-            item.y = -650;
+            item.y = -600;
             item.style.left = newPosition + "px";
             item.style.backgroundColor = randomColor();
         }
@@ -111,13 +111,13 @@ function moveEnemy(car) {
 
 
 let lastScoreUpdateTime = 0;
-const scoreUpdateInterval = 500;
+const scoreUpdateInterval = 290;
 
 function playGame() {
     let currentTime = Date.now();
     let car = document.querySelector(".car");
     moveLine();
-    moveline();
+    moveLines();
     MoveLines();
     moveEnemy(car);
     let road = gameArea.getBoundingClientRect();
@@ -243,7 +243,7 @@ function start() {
     player.level = 1;
     player.speed += 1;
     levelDisplay.innerHTML = "Level: " + player.level; 
-    for (let x = 0; x < 3; x++) {
+    for (let x = 0; x < 20; x++) {
         let div = document.createElement("div");
         div.classList.add("line");
         div.y = x * 150;
@@ -253,7 +253,7 @@ function start() {
         gameArea.appendChild(div);
     }
 
-    for(let x = 0; x < 3; x++) {
+    for(let x = 0; x < 20; x++) {
         let divs = document.createElement("div");
         divs.classList.add("line2");
         divs.y = x * 150;
@@ -264,7 +264,7 @@ function start() {
     }
 
 
-    for(let x = 0; x < 3; x++) {
+    for(let x = 0; x < 20; x++) {
         let dives = document.createElement("div");
         dives.classList.add("line3");
         dives.y = x * 150;
@@ -283,20 +283,17 @@ function start() {
     player.x = car.offsetLeft;
     player.y = car.offsetTop;
 
-    GenerateEnemies();
-
-    function GenerateEnemies() {
-        for (let x = 0; x < 3; x++) {
-            let enemy = document.createElement("div");
-            enemy.classList.add("enemy");
-            enemy.innerHTML = (x + 1);
-            enemy.y = ((x + 1) * 600) * -1;
-            enemy.style.top = enemy.y + "px";
-            enemy.style.left = linePositions[Math.floor(Math.random() * linePositions.length)] + "px";
-            enemy.style.backgroundColor = randomColor();
-            gameArea.appendChild(enemy);
-        }    
+    for (let x = 0; x < 3; x++) {
+        let enemy = document.createElement("div");
+        enemy.classList.add("enemy");
+        enemy.innerHTML = (x + 1);
+        enemy.y = ((x + 1) * 600) * -1;
+        enemy.style.top = enemy.y + "px";
+        enemy.style.left = linePositions[Math.floor(Math.random() * linePositions.length)] + "px";
+        enemy.style.backgroundColor = randomColor();
+        gameArea.appendChild(enemy);
     }
+
 }
 
 function randomColor() {
