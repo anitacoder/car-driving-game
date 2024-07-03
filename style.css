@@ -52,6 +52,27 @@ body, html {
     transform: translateX(-50%);
 }
 
+.line2 {
+    width: 5px;
+    height: 50px;
+    background-color: white;
+    position: absolute;
+    left: 25%;
+    transform: translateY(-50%);
+}
+
+.line3 {
+    width: 5px;
+    height: 50px;
+    background-color: white;
+    position: absolute;
+    left: 75%;
+    top: 0;
+    transform: translateY(-50%);
+}
+
+
+
 .score-level-container {
     display: flex;
     background-color: #16213e;
