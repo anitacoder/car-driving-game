@@ -243,7 +243,7 @@ function start() {
     player.level = 1;
     player.speed += 1;
     levelDisplay.innerHTML = "Level: " + player.level; 
-    for (let x = 0; x < 10; x++) {
+    for (let x = 0; x < 3; x++) {
         let div = document.createElement("div");
         div.classList.add("line");
         div.y = x * 150;
@@ -253,7 +253,7 @@ function start() {
         gameArea.appendChild(div);
     }
 
-    for(let x = 0; x < 10; x++) {
+    for(let x = 0; x < 3; x++) {
         let divs = document.createElement("div");
         divs.classList.add("line2");
         divs.y = x * 150;
@@ -264,7 +264,7 @@ function start() {
     }
 
 
-    for(let x = 0; x < 10; x++) {
+    for(let x = 0; x < 3; x++) {
         let dives = document.createElement("div");
         dives.classList.add("line3");
         dives.y = x * 150;
@@ -286,15 +286,12 @@ function start() {
     GenerateEnemies();
 
     function GenerateEnemies() {
-        const positions = [...linePositions];
-        for (let x = 0; x < 90; x++) {
+        for (let x = 0; x < 3; x++) {
             let enemy = document.createElement("div");
             enemy.classList.add("enemy");
             enemy.innerHTML = (x + 1);
             enemy.y = ((x + 1) * 600) * -1;
             enemy.style.top = enemy.y + "px";
-            let newPositionIndex = Math.floor(Math.random() * positions.length);
-            let newPosition = positions.splice(newPositionIndex, 9)[0];
             enemy.style.left = linePositions[Math.floor(Math.random() * linePositions.length)] + "px";
             enemy.style.backgroundColor = randomColor();
             gameArea.appendChild(enemy);
