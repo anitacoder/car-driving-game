@@ -287,7 +287,7 @@ function start() {
 
     function GenerateEnemies() {
         const positions = [...linePositions];
-        for (let x = 0; x < 30; x++) {
+        for (let x = 0; x < 90; x++) {
             let enemy = document.createElement("div");
             enemy.classList.add("enemy");
             enemy.innerHTML = (x + 1);
