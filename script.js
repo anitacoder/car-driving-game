@@ -246,7 +246,7 @@ function start() {
     player.start = true;
     player.score = 0;
     player.level = 1;
-    player.speed += 1;
+    player.speed += 0.5;
     levelDisplay.innerHTML = "Level: " + player.level; 
     for (let x = 0; x < 10; x++) {
         let div = document.createElement("div");
