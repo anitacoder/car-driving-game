@@ -125,24 +125,24 @@ function playGame() {
     if (player.start && !player.paused) {
         if (keys.ArrowUp && player.y > road.top) {
             player.y -= player.speed;
-            updateScore();
+            UpdateScores();
         }
         if (keys.ArrowDown && player.y < road.bottom - 150) {
             player.y += player.speed;
-            updateScore();
+            UpdateScores();
         }
         if (keys.ArrowLeft && player.x > car.offsetWidth / 2) {
             player.x -= player.speed;
-            updateScore();
+            UpdateScores();
         }
         if (keys.ArrowRight && player.x < (road.width - car.offsetWidth / 2)) {
             if (player.x + car.offsetWidth / 2 < line3.left || player.x - car.offsetWidth / 2 > line3.right) {
                 player.x += player.speed;
-                updateScore();
+                UpdateScores();
             }       
      }
 
-         function updateScore() {
+         function UpdateScores() {
             let currentTime = Date.now();
             if (currentTime - lastScoreUpdateTime >= scoreUpdateInterval) {
                 player.score++;
