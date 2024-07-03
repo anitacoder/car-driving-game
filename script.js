@@ -27,7 +27,7 @@ function moveLine() {
     });
 }
 
-function moveLines() {
+function moveline() {
     let line = document.querySelectorAll(".line2");
     line.forEach(function(item) {
         if (item.y >= gameArea.offsetHeight) {
@@ -117,7 +117,7 @@ function playGame() {
     let currentTime = Date.now();
     let car = document.querySelector(".car");
     moveLine();
-    moveLines();
+    moveline();
     MoveLines();
     moveEnemy(car);
     let road = gameArea.getBoundingClientRect();
@@ -241,6 +241,7 @@ function start() {
     player.start = true;
     player.score = 0;
     player.level = 1;
+    player.speed += 1;
     levelDisplay.innerHTML = "Level: " + player.level; 
     for (let x = 0; x < 40; x++) {
         let div = document.createElement("div");
