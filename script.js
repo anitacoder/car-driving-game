@@ -39,54 +39,55 @@ function isCollide(a, b) {
     );
 }
 
+
+function getValidEnemyPosition(enemies, linePositions, enemyWidth, line3Rect) {
+    let overlap = true;
+    let newPosition;
+
+    while (overlap) {
+        overlap = false;
+        newPosition = linePositions[Math.floor(Math.random() * linePositions.length)];
+        
+        // Ensure the new position is not on the line
+        if (newPosition === line3Rect.left) {
+            overlap = false;
+            continue;
+        }
+
+        enemies.forEach(function(enemy) {
+            let enemyRect = enemy.getBoundingClientRect();
+            if (
+                (newPosition >= enemyRect.left - enemyWidth && newPosition <= enemyRect.right) ||
+                (newPosition >= enemyRect.left && newPosition + enemyWidth <= enemyRect.right)
+            ) {
+                overlap = true;
+            }
+        });
+    }
+    return newPosition;
+}
+
+
 function moveEnemy(car) {
     let enemies = document.querySelectorAll(".enemy");
-    let line3 = document.querySelector(".line3");
-    let line3Rect = line3.getBoundingClientRect();
-    let line3Width = 10;
+    let lines = document.querySelectorAll(".line3");
+    let enemyWidth = 60;
 
-    enemies.forEach(function(item, index) {
+    enemies.forEach(function(item) {
         if (isCollide(car, item)) {
             console.log("HIT");
             endGame();
         }
         if (item.y >= 1500) {
-            let newPosition = linePositions[Math.floor(Math.random() * linePositions.length)];
-            let enemyWidth = 60;
-            let overlap = true;
-
-            while (overlap) {
-                overlap = false;
-                newPosition = linePositions[Math.floor(Math.random() * linePositions.length)];
-                enemies.forEach(function(enemy, idx) {
-                    if (index !== idx) {
-                        let enemyRect = enemy.getBoundingClientRect();
-                        if (
-                            (newPosition >= enemyRect.left - enemyWidth && newPosition <= enemyRect.right) ||
-                            (newPosition >= enemyRect.left - enemyWidth && newPosition <= enemyRect.right) ||
-                            (newPosition >= enemyRect.left && newPosition + enemyWidth <= enemyRect.right)
-                        ) {
-                            overlap = true;
-                        }
-                    }
-                }); 
-                if (
-                    (newPosition <= line3Rect.left - enemyWidth && newPosition <= line3Rect.right + line3Width) ||
-                    (newPosition + enemyWidth <= line3Rect.left - enemyWidth && newPosition + enemyWidth <= line3Rect.right + line3Width)
-                ) {
-                    overlap = false;
-                }
-            }
-
+            let newPosition = getValidEnemyPosition(enemies, linePositions, enemyWidth, lines);
             item.y = -600;
             item.style.left = newPosition + "px";
             item.style.backgroundColor = randomColor();
         }
         item.y += player.speed;
-        item.style.top = Math.floor(item.y) + "px"; 
+        item.style.top = Math.floor(item.y) + "px";
     });
 }
-
 
 let lastScoreUpdateTime = 0;
 const scoreUpdateInterval = 290;
@@ -250,8 +251,10 @@ function start() {
         enemy.innerHTML = (x + 1);
         enemy.y = ((x + 1) * 600) * -1;
         enemy.style.top = enemy.y + "px";
-        enemy.style.left = linePositions[Math.floor(Math.random() * linePositions.length)] + "px";
-        enemy.style.backgroundColor = randomColor();
+        enemy.style.left = getValidEnemyPosition([], linePositions, 90, document.querySelectorAll(".line3")) + "px";
+        let color = randomColor();
+        enemy.style.backgroundColor = color;
+        enemy.style.filter = `brightness(0) saturate(100%) invert(27%) sepia(77%) saturate(7484%) hue-rotate(349deg) brightness(99%) contrast(101%) drop-shadow(0 0 10px ${color})`;  // Apply the color filter effect
         gameArea.appendChild(enemy);
     }
 
