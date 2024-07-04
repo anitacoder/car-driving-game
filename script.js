@@ -125,16 +125,6 @@ function transitionToLevelTwo() {
     levelDisplay.innerHTML = "Level: " + player.level;
 }
 
-function createEnemy() {
-    let enemy = document.createElement("div");
-    enemy.classList.add("enemy");
-    enemy.innerHTML = (gameArea.querySelectorAll(".enemy").length + 1);
-    enemy.y = ((gameArea.querySelectorAll(".enemy").length + 1) * 800) * -1; 
-    enemy.style.top = enemy.y + "px";
-    enemy.style.left = getRandomEnemyPosition() + "px";
-    enemy.style.backgroundColor = randomColor();
-    gameArea.appendChild(enemy);
-}
 
 function getRandomEnemyPosition() {
     let enemies = document.querySelectorAll(".enemy");
@@ -145,7 +135,7 @@ function getRandomEnemyPosition() {
         left = Math.floor(Math.random() * (gameArea.offsetWidth - 65));
         isOverlap = Array.from(enemies).some((enemy) => {
             let enemyRect = enemy.getBoundingClientRect();
-            return !(left + 65 < enemyRect.left || left > enemyRect.right);
+            return Math.abs(left + 65 < enemyRect.left || left > enemyRect.right);
         });
     } while (isOverlap){
         return left;
