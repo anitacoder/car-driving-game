@@ -42,6 +42,27 @@ function isCollide(a, b) {
     );
 }
 
+function getValidEnemyPosition(enemies, laneWidth) {
+    let overlap = true;
+    let newPosition;
+
+    while (overlap) {
+        overlap = false;
+        let lane = Math.floor(Math.random() * laneCount);
+        newPosition = lane * laneWidth + laneWidth / 2 - 30; // Adjusted to center the enemy in the lane
+
+        enemies.forEach(function(enemy) {
+            let enemyRect = enemy.getBoundingClientRect();
+            if (
+                (newPosition >= enemyRect.left - laneWidth && newPosition <= enemyRect.right) ||
+                (newPosition >= enemyRect.left && newPosition + laneWidth <= enemyRect.right)
+            ) {
+                overlap = true;
+            }
+        });
+    }
+    return newPosition;
+}
 function moveEnemy(car) {
     let enemies = document.querySelectorAll(".enemy");
     enemies.forEach(function(item) {
@@ -102,35 +123,6 @@ function transitionToLevelTwo() {
     player.level = 2;
     player.speed += 2;
     levelDisplay.innerHTML = "Level: " + player.level;
-    
-    for (let x = 0; x < 20; x++) { 
-        let div = document.createElement("div");
-        div.classList.add("line");
-        div.y = x * 150;
-        div.style.height = "90px";
-        div.style.top = (x * 150) + "px";
-        gameArea.appendChild(div);
-    }
-
-    for (let x = 0; x < 8; x++) {
-        let enemy = document.createElement("div");
-        enemy.classList.add("enemy");
-        enemy.innerHTML = (x + 1);
-        enemy.y = ((x + 1) * 800) * -1; 
-        enemy.style.top = enemy.y + "px";
-        enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + "px";
-        enemy.style.backgroundColor = randomColor();
-        gameArea.appendChild(enemy);
-    }
-
-    for (let x = 0; x < 20; x++) {
-        let divs = document.createElement("div");
-        divs.classList.add("line2");
-        divs.y = x * 150;
-        divs.style.height = "90px";
-        divs.style.top = (x * 150) + "px";
-        gameArea.appendChild(divs);
-    }
 }
 
 function createEnemy() {
