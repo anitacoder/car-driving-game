@@ -44,6 +44,18 @@ body, html {
     z-index: 2;
 }
 
+.enemy {
+    position: absolute;
+    bottom: 100px;
+    width: 25%;
+    height: 190px;
+    background-image: url("Images/car-image2-removebg-preview.png");
+    background-size: cover;
+    background-position: center;
+    z-index: 2;
+}
+
+
 .line3 {
     position: absolute;
     height: 80px;
