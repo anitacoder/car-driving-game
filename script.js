@@ -117,29 +117,28 @@ function playGame() {
                 player.x += player.speed;
                 updateScore();
             }
-     }
+        }
 
-         function updateScore() {
-            let currentTime = Date.now();
-            if (currentTime - lastScoreUpdateTime >= scoreUpdateInterval) {
-                player.score++;
-                score.innerHTML = "Score: " + player.score;
-
-            lastScoreUpdateTime = currentTime;
-     }
-        }
-        if(player.level === 1 && player.score >= 50){
-            transitionToLevelTwo();
-        }
-        if(player.level === 2 && player.score >= 100){
-            transitionToLevelThree();
-        }
         car.style.left = player.x + 'px';
         car.style.top = player.y + 'px';
         window.requestAnimationFrame(playGame);
     }
 }
 
+     function updateScore() {
+        let currentTime = Date.now();
+        if (currentTime - lastScoreUpdateTime >= scoreUpdateInterval) {
+            player.score++;
+            score.innerHTML = "Score: " + player.score;
+            lastScoreUpdateTime = currentTime;
+        }
+    
+        if (player.level === 1 && player.score >= 50) {
+            transitionToLevelTwo();
+        } else if (player.level === 2 && player.score >= 100) {
+            transitionToLevelThree();
+        }
+    }
 function transitionToLevelTwo() {
     player.level = 2;
     levelDisplay.innerHTML = "Level: " + player.level;
