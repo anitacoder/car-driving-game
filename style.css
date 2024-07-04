@@ -23,14 +23,27 @@ body, html {
 
 .gameArea {
     background-color: #16213e;
-    width: 800px;
+    width: 340px;
     height: 100%;
     overflow: hidden;
     position: relative;
     margin: auto;
 }
 
-.car, .enemy {
+.car{
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 100px;
+    background-color: white;
+    background-image: url('../Images/car2.png');
+    background-size: cover;
+    z-index: 2;
+}
+
+.enemy {
     position: absolute;
     bottom: 100px;
     left: 50%;
@@ -51,16 +64,6 @@ body, html {
     left: 50%;
     transform: translateX(-50%);
 }
-
-.line2 {
-    width: 5px;
-    height: 50px;
-    background-color: white;
-    position: absolute;
-    left: 30%;
-    transform: translateY(-50%);
-}
-
 
 .score-level-container {
     display: flex;
