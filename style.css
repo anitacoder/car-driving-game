@@ -35,43 +35,43 @@ body, html {
     bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 100px;
+    width: 25%;
+    height: 190px;
     background-color: white;
-    background-image: url("/Images/car2.png");
+    background-image: url('../Images/car2.png');
     background-size: cover;
     z-index: 2;
 }
 
-.line {
+/* .line {
     width: 5px;
     height: 50px;
     background-color: white;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-}
-/* 
+} */
+
 .line2 {
     width: 5px;
     height: 50px;
     background-color: white;
     position: absolute;
-    left: 25%;
+    left: 50%;
     transform: translateY(-50%);
 }
 
-.line3 {
-    width: 5px;
-    height: 50px;
-    background-color: white;
-    position: absolute;
-    left: 75%;
-    top: 0;
-    transform: translateY(-50%);
-}
+    /* .line3 {
+        width: 5px;
+        height: 50px;
+        background-color: white;
+        position: absolute;
+        left: 75%;
+        top: 0;
+        transform: translateY(-50%);
+    } */
 
- */
+
 
 .score-level-container {
     display: flex;

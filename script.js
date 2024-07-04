@@ -9,7 +9,7 @@ let player = { speed: 5, score: 0, HighScore: 0,level: 1, paused: false, x: 0, y
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
 const linePositions = [
-    gameArea.offsetWidth * 0.45,
+    gameArea.offsetWidth * 0.15,
     gameArea.offsetWidth * 0.35,
     gameArea.offsetWidth * 0.55,
     gameArea.offsetWidth * 0.15,
@@ -246,7 +246,7 @@ function start() {
     player.start = true;
     player.score = 0;
     player.level = 1;
-    player.speed += 0.5;
+    player.speed += 1;
     levelDisplay.innerHTML = "Level: " + player.level; 
     for (let x = 0; x < 10; x++) {
         let div = document.createElement("div");
