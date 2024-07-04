@@ -51,7 +51,7 @@ body, html {
     left: 50%;
     transform: translateX(-50%);
 }
-
+/* 
 .line2 {
     width: 5px;
     height: 50px;
@@ -71,7 +71,7 @@ body, html {
     transform: translateY(-50%);
 }
 
-
+ */
 
 .score-level-container {
     display: flex;
