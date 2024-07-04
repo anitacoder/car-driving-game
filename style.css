@@ -25,6 +25,7 @@ body, html {
     background-color: #16213e;
     width: 320px;
     height: 100%;
+    margin: 0 auto;
     overflow: hidden;
     position: relative;
     margin: auto;
@@ -45,10 +46,11 @@ body, html {
 .line3 {
     position: absolute;
     height: 80px;
-    width: 10px;
+    width: 5px;
     background-color: #fff;
     top: 0; 
-    left: 75%; 
+    left: 50%;
+    transform: translateX(-1200%); 
 }
 
 .score-level-container {

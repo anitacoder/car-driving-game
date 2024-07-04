@@ -12,7 +12,7 @@ const linePositions = [
     gameArea.offsetWidth * 0.15,
     gameArea.offsetWidth * 0.35,
     gameArea.offsetWidth * 0.55,
-    gameArea.offsetWidth * 0.15,
+    gameArea.offsetWidth * 0.75,
     gameArea.offsetWidth * 0.95
 ];
 
