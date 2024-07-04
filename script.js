@@ -5,48 +5,18 @@ const gameArea = document.querySelector(".gameArea");
 const pauseScreen = document.querySelector(".pausedScreen");
 const pauseMessage = document.querySelector(".pauseMessage");
 const banner = document.querySelector("#banner");
-let player = { speed: 5, score: 0, HighScore: 0,level: 1, paused: false, x: 0, y: 0}; 
+let player = { speed: 5, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0 };
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
-const linePositions = [
-    gameArea.offsetWidth * 0.15,
-    gameArea.offsetWidth * 0.35,
-    gameArea.offsetWidth * 0.55,
-    gameArea.offsetWidth * 0.15,
-    gameArea.offsetWidth * 0.95
-];
+const linePosition = gameArea.offsetWidth / 2;
 
 function moveLine() {
-    let lines = document.querySelectorAll(".line");
-    lines.forEach(function(item) {
-        if (item.y >= gameArea.offsetHeight) {
-            item.y = -150;
-        }
-        item.y += player.speed;
-        item.style.top = item.y + "px";
-    });
-}
-
-function moveLines() {
-    let line = document.querySelectorAll(".line2");
-    line.forEach(function(item) {
-        if (item.y >= gameArea.offsetHeight) {
-            item.y = -150;
-        }
-        item.y += player.speed;
-        item.style.top = Math.floor(item.y) + "px"; 
-    });
-}
-
-function MoveLines() {
-    let Line = document.querySelectorAll(".line3");
-    Line.forEach(function(item) {
-        if (item.y >= gameArea.offsetHeight) {
-            item.y = -150;
-        }
-        item.y += player.speed;
-        item.style.top = Math.floor(item.y) + "px"; 
-    });
+    let line = document.querySelector(".line");
+    if (line.y >= gameArea.offsetHeight) {
+        line.y = -150;
+    }
+    line.y += player.speed;
+    line.style.top = line.y + "px";
 }
 
 function isCollide(a, b) {
@@ -63,52 +33,23 @@ function isCollide(a, b) {
 
 function moveEnemy(car) {
     let enemies = document.querySelectorAll(".enemy");
-    let line3 = document.querySelector(".line3");
-    let line3Rect = line3.getBoundingClientRect();
-    let line3Width = 10;
+    let lineRect = document.querySelector(".line").getBoundingClientRect();
+    let lineWidth = 10;
 
-    enemies.forEach(function(item, index) {
+    enemies.forEach(function (item, index) {
         if (isCollide(car, item)) {
             console.log("HIT");
             endGame();
         }
-        if (item.y >= 1500) {
-            let newPosition = linePositions[Math.floor(Math.random() * linePositions.length)];
-            let enemyWidth = 60;
-            let overlap = true;
-
-            while (overlap) {
-                overlap = false;
-                newPosition = linePositions[Math.floor(Math.random() * linePositions.length)];
-                enemies.forEach(function(enemy, idx) {
-                    if (index !== idx) {
-                        let enemyRect = enemy.getBoundingClientRect();
-                        if (
-                            (newPosition >= enemyRect.left - enemyWidth && newPosition <= enemyRect.right) ||
-                            (newPosition >= enemyRect.left - enemyWidth && newPosition <= enemyRect.right) ||
-                            (newPosition >= enemyRect.left && newPosition + enemyWidth <= enemyRect.right)
-                        ) {
-                            overlap = true;
-                        }
-                    }
-                }); 
-                if (
-                    (newPosition <= line3Rect.left - enemyWidth && newPosition <= line3Rect.right + line3Width) ||
-                    (newPosition + enemyWidth <= line3Rect.left - enemyWidth && newPosition + enemyWidth <= line3Rect.right + line3Width)
-                ) {
-                    overlap = false;
-                }
-            }
-
+        if (item.y >= gameArea.offsetHeight) {
             item.y = -600;
-            item.style.left = newPosition + "px";
+            item.style.left = Math.random() < 0.5 ? linePosition - 100 + "px" : linePosition + 100 + "px";
             item.style.backgroundColor = randomColor();
         }
         item.y += player.speed;
-        item.style.top = Math.floor(item.y) + "px"; 
+        item.style.top = Math.floor(item.y) + "px";
     });
 }
-
 
 let lastScoreUpdateTime = 0;
 const scoreUpdateInterval = 290;
@@ -116,11 +57,9 @@ const scoreUpdateInterval = 290;
 function playGame() {
     let car = document.querySelector(".car");
     moveLine();
-    moveLines();
-    MoveLines();
     moveEnemy(car);
     let road = gameArea.getBoundingClientRect();
-    let line3 = document.querySelector(".line3").getBoundingClientRect();
+    let line = document.querySelector(".line").getBoundingClientRect();
 
     if (player.start && !player.paused) {
         if (keys.ArrowUp && player.y > road.top) {
@@ -135,26 +74,25 @@ function playGame() {
             player.x -= player.speed;
             UpdateScores();
         }
-        if (keys.ArrowRight && player.x < (road.width - car.offsetWidth / 2)) {
-            if (player.x + car.offsetWidth / 2 < line3.left || player.x - car.offsetWidth / 2 > line3.right) {
+        if (keys.ArrowRight && player.x < road.width - car.offsetWidth / 2) {
+            if (player.x + car.offsetWidth / 2 < line.left || player.x - car.offsetWidth / 2 > line.right) {
                 player.x += player.speed;
                 UpdateScores();
-            }       
-     }
+            }
+        }
 
-         function UpdateScores() {
+        function UpdateScores() {
             let currentTime = Date.now();
             if (currentTime - lastScoreUpdateTime >= scoreUpdateInterval) {
                 player.score++;
                 score.innerHTML = "Score: " + player.score;
                 lastScoreUpdateTime = currentTime;
-            
             }
         }
-        if(player.level === 1 && player.score >= 50){
+        if (player.level === 1 && player.score >= 50) {
             transitionToLevelTwo();
         }
-        if(player.level === 2 && player.score >= 100){
+        if (player.level === 2 && player.score >= 100) {
             transitionToLevelThree();
         }
         car.style.left = player.x + 'px';
@@ -194,13 +132,13 @@ function pressOff(e) {
 const pauseButton = document.getElementById('pauseButton');
 const resumeButton = document.getElementById('resumeButton');
 
-pauseButton.addEventListener('click', function() {
+pauseButton.addEventListener('click', function () {
     if (!player.paused) {
         pauseGame();
     }
 });
 
-resumeButton.addEventListener('click', function() {
+resumeButton.addEventListener('click', function () {
     if (player.paused) {
         resumeGame();
     }
@@ -208,23 +146,23 @@ resumeButton.addEventListener('click', function() {
 
 function pauseGame() {
     player.paused = true;
-    pauseScreen.classList.remove("hide"); 
+    pauseScreen.classList.remove("hide");
     pauseButton.classList.add("hide");
     resumeButton.classList.remove("hide");
     const pauseMessage = document.querySelector(".pauseMessage");
     if (pauseMessage) {
-        pauseMessage.textContent = "Paused"; 
+        pauseMessage.textContent = "Paused";
     }
     console.log("Game Paused");
 }
 
 function resumeGame() {
     player.paused = false;
-    pauseScreen.classList.add("hide"); 
+    pauseScreen.classList.add("hide");
     resumeButton.classList.add("hide");
     pauseButton.classList.remove("hide");
     console.log("Resume Game");
-    window.requestAnimationFrame(playGame); 
+    window.requestAnimationFrame(playGame);
 }
 
 function endGame() {
@@ -235,49 +173,27 @@ function endGame() {
     }
     const gameOverMessage = document.getElementById("gameOverMessage");
     gameOverMessage.innerHTML = `Game Over<br> Score: ${player.score} <br>High Score : ${player.HighScore}`;
-    banner.classList.remove("hide"); // Hide the banner
+    banner.classList.remove("hide");
 }
 
 function start() {
-    banner.classList.add("hide"); 
+    banner.classList.add("hide");
     startScreen.classList.add("hide");
-    score.classList.remove("hide"); 
+    score.classList.remove("hide");
     gameArea.innerHTML = "";
     player.start = true;
     player.score = 0;
     player.level = 1;
     player.speed += 1;
-    levelDisplay.innerHTML = "Level: " + player.level; 
-    for (let x = 0; x < 10; x++) {
-        let div = document.createElement("div");
-        div.classList.add("line");
-        div.y = x * 150;
-        div.style.left = (gameArea.offsetWidth * 0.25) + "px";
-        div.style.height = "80px";
-        div.style.top = (x * 150) + "px";
-        gameArea.appendChild(div);
-    }
+    levelDisplay.innerHTML = "Level: " + player.level;
 
-    for(let x = 0; x < 10; x++) {
-        let divs = document.createElement("div");
-        divs.classList.add("line2");
-        divs.y = x * 150;
-        divs.style.left = (gameArea.offsetWidth * 0.50) + "px";
-        divs.style.height = "80px"
-        divs.style.top = (x * 150) + "px";
-        gameArea.appendChild(divs);
-    }
-
-
-    for(let x = 0; x < 10; x++) {
-        let dives = document.createElement("div");
-        dives.classList.add("line3");
-        dives.y = x * 150;
-        dives.style.left = (gameArea.offsetWidth * 0.75)+"px";
-        dives.style.height = "80px"
-        dives.style.top = (x * 150) + "px";
-        gameArea.appendChild(dives);
-    }
+    let line = document.createElement("div");
+    line.classList.add("line");
+    line.y = 0;
+    line.style.left = linePosition + "px";
+    line.style.height = "80px";
+    line.style.top = "0px";
+    gameArea.appendChild(line);
 
     window.requestAnimationFrame(playGame);
 
@@ -294,11 +210,10 @@ function start() {
         enemy.innerHTML = (x + 1);
         enemy.y = ((x + 1) * 600) * -1;
         enemy.style.top = enemy.y + "px";
-        enemy.style.left = linePositions[Math.floor(Math.random() * linePositions.length)] + "px";
+        enemy.style.left = Math.random() < 0.5 ? linePosition - 100 + "px" : linePosition + 100 + "px";
         enemy.style.backgroundColor = randomColor();
         gameArea.appendChild(enemy);
     }
-
 }
 
 function randomColor() {
@@ -310,8 +225,8 @@ function randomColor() {
 }
 
 const startGameButton = document.getElementById("startGameButton");
-startGameButton.addEventListener("click", function() {
-    console.log("Start button clicked"); 
+startGameButton.addEventListener("click", function () {
+    console.log("Start button clicked");
     banner.classList.add("hide");
     startScreen.classList.add("hide");
     start();
