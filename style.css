@@ -37,11 +37,12 @@ body, html {
     transform: translateX(-50%);
     width: 25%;
     height: 190px;
-    background-color: white;
-    background-image: url("Images/racing-car2.webp");
+    background-image: url("Images/car-image2-removebg-preview.png");
     background-size: cover;
     z-index: 2;
 }
+
+
 
 /* .line {
     width: 5px;
