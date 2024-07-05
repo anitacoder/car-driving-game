@@ -45,10 +45,9 @@ body, html {
 
 .enemy {
     position: absolute;
-    bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
-    width: 125px;
+    width: 130px;
     height: 290px;
     background-color: white;
     background-image: url('../Images/car2.png');
