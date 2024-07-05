@@ -55,6 +55,46 @@ function getValidEnemyPosition(enemies, laneWidth) {
     }
     return newPosition;
 }
+
+function isVerticalOverlap(newEnemy, existingEnemies) {
+    let overlap = false;
+    let newRect = newEnemy.getBoundingClientRect();
+
+    existingEnemies.forEach(function(enemy) {
+        let existingRect = enemy.getBoundingClientRect();
+        if (
+            !(newRect.bottom < existingRect.top || 
+              newRect.top > existingRect.bottom ||
+              newRect.right < existingRect.left || 
+              newRect.left > existingRect.right)
+        ) {
+            overlap = true;
+        }
+    });
+
+    return overlap;
+}
+
+function placeEnemies(enemies) {
+    enemies.forEach(function(enemy) {
+        let validPositionFound = false;
+        let maxAttempts = 100;
+        let attempts = 0;
+
+        while (!validPositionFound && attempts < maxAttempts) {
+            attempts++;
+            enemy.style.left = getRandomEnemyPosition(enemies) + "px";
+            enemy.y = ((attempts + 1) * 1900); // Adjust vertical position
+            enemy.style.top = enemy.y + "px";
+            
+            // Check for vertical overlap
+            if (!isVerticalOverlap(enemy, enemies)) {
+                validPositionFound = true;
+            }
+        }
+
+    });
+}
 function moveEnemy(car) {
     let enemies = document.querySelectorAll(".enemy");
     enemies.forEach(function(item) {
@@ -236,6 +276,7 @@ function start() {
         enemy.style.backgroundColor = randomColor();
         gameArea.appendChild(enemy);
     }
+    placeEnemies(enemies);
 }
 
 
