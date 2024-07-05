@@ -84,7 +84,7 @@ function placeEnemies(enemies) {
         while (!validPositionFound && attempts < maxAttempts) {
             attempts++;
             enemy.style.left = getRandomEnemyPosition(enemies) + "px";
-            enemy.y = ((attempts + 1) * 19); // Adjust vertical position
+            enemy.y = ((attempts + 1) * 1900); // Adjust vertical position
             enemy.style.top = enemy.y + "px";
             
             // Check for vertical overlap
@@ -93,6 +93,7 @@ function placeEnemies(enemies) {
             }
         }
 
+        console.log(`Enemy ${enemy.innerHTML}: top=${enemy.style.top}, left=${enemy.style.left}`);
     });
 }
 function moveEnemy(car) {
