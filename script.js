@@ -5,10 +5,8 @@ const gameArea = document.querySelector(".gameArea");
 const pauseScreen = document.querySelector(".pausedScreen");
 const pauseMessage = document.querySelector(".pauseMessage");
 const banner = document.querySelector("#banner");
-let player = { speed: 5, score: 0, HighScore: 0,level: 1, paused: false }; 
+let player = { speed: 5, score: 0, HighScore: 0, level: 1, paused: false }; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
-
-let enemyPositionToggle = true;
 
 function moveLine() {
     let lines = document.querySelectorAll(".line");
@@ -20,7 +18,6 @@ function moveLine() {
         item.style.top = item.y + "px";
     });
 }
-
 
 function isCollide(a, b) {
     let aRect = a.getBoundingClientRect();
@@ -34,68 +31,22 @@ function isCollide(a, b) {
     );
 }
 
-function getValidEnemyPosition(enemies, laneWidth) {
-    let overlap = true;
-    let newPosition;
+function getRandomEnemyPosition(existingEnemies) {
+    let left;
+    let isOverlap;
+    const enemyWidth = 120; // Adjust to match enemy width
 
-    while (overlap) {
-        overlap = false;
-        let lane = Math.floor(Math.random() * laneCount);
-        newPosition = lane * laneWidth + laneWidth / 2 - 30; // Adjusted to center the enemy in the lane
-
-        enemies.forEach(function(enemy) {
+    do {
+        left = Math.floor(Math.random() * (gameArea.offsetWidth - enemyWidth));
+        isOverlap = Array.from(existingEnemies).some((enemy) => {
             let enemyRect = enemy.getBoundingClientRect();
-            if (
-                (newPosition >= enemyRect.left - laneWidth && newPosition <= enemyRect.right) ||
-                (newPosition >= enemyRect.left && newPosition + laneWidth <= enemyRect.right)
-            ) {
-                overlap = true;
-            }
+            return !(left + enemyWidth < enemyRect.left || left > enemyRect.right);
         });
-    }
-    return newPosition;
+    } while (isOverlap);
+
+    return left;
 }
 
-function isVerticalOverlap(newEnemy, existingEnemies) {
-    let overlap = false;
-    let newRect = newEnemy.getBoundingClientRect();
-
-    existingEnemies.forEach(function(enemy) {
-        let existingRect = enemy.getBoundingClientRect();
-        if (
-            !(newRect.bottom < existingRect.top || 
-              newRect.top > existingRect.bottom ||
-              newRect.right < existingRect.left || 
-              newRect.left > existingRect.right)
-        ) {
-            overlap = true;
-        }
-    });
-
-    return overlap;
-}
-
-function placeEnemies(enemies) {
-    enemies.forEach(function(enemy) {
-        let validPositionFound = false;
-        let maxAttempts = 100;
-        let attempts = 0;
-
-        while (!validPositionFound && attempts < maxAttempts) {
-            attempts++;
-            enemy.style.left = getRandomEnemyPosition(enemies) + "px";
-            enemy.y = ((attempts + 1) * 1900); // Adjust vertical position
-            enemy.style.top = enemy.y + "px";
-            
-            // Check for vertical overlap
-            if (!isVerticalOverlap(enemy, enemies)) {
-                validPositionFound = true;
-            }
-        }
-
-        console.log(`Enemy ${enemy.innerHTML}: top=${enemy.style.top}, left=${enemy.style.left}`);
-    });
-}
 function moveEnemy(car) {
     let enemies = document.querySelectorAll(".enemy");
     enemies.forEach(function(item) {
@@ -103,9 +54,9 @@ function moveEnemy(car) {
             console.log('HIT');
             endGame();
         }
-        if (item.y >= gameArea.offsetHeight) {
+        if (item.y >= 1500) {
             item.y = -600;
-            item.style.left = getRandomEnemyPosition() + "px";
+            item.style.left = getRandomEnemyPosition(enemies) + "px"; // Ensure enemies are spaced
             item.style.backgroundColor = randomColor();
         }
         item.y += player.speed;
@@ -155,22 +106,6 @@ function transitionToLevelTwo() {
     player.level = 2;
     levelDisplay.innerHTML = "Level: " + player.level;
 }
-
-
-function getRandomEnemyPosition() {
-    const leftPosition = 70;
-    const rightPosition = gameArea.offsetWidth - 70; // Adjust 50 according to enemy width
-
-    let position;
-    if (enemyPositionToggle) {
-        position = leftPosition;
-    } else {
-        position = rightPosition;
-    }
-    enemyPositionToggle = !enemyPositionToggle; // Toggle for the next enemy
-
-    return position;
-}   
 
 function pressOn(e) {
     e.preventDefault();
@@ -236,7 +171,7 @@ function endGame() {
     }
     const gameOverMessage = document.getElementById("gameOverMessage");
     gameOverMessage.innerHTML = `Game Over<br> Score: ${player.score} <br>High Score : ${player.HighScore}`;
-    banner.classList.remove("hide"); // Hide the banner
+    banner.classList.remove("hide"); // Show the banner
 }
 
 function start() {
@@ -267,19 +202,19 @@ function start() {
     player.x = car.offsetLeft;
     player.y = car.offsetTop;
 
+    let enemies = [];
     for (let x = 0; x < 10; x++) {
         let enemy = document.createElement("div");
         enemy.classList.add("enemy");
         enemy.innerHTML = (x + 1);
         enemy.y = ((x + 1) * 600) * -1;
         enemy.style.top = enemy.y + "px";
-        enemy.style.left = getRandomEnemyPosition() + "px"; // Use getRandomEnemyPosition() to get a valid position
+        enemy.style.left = getRandomEnemyPosition(enemies) + "px"; // Use getRandomEnemyPosition() to get a valid position
         enemy.style.backgroundColor = randomColor();
         gameArea.appendChild(enemy);
+        enemies.push(enemy); // Add to the enemies array for position checking
     }
-    placeEnemies(enemies);
 }
-
 
 function randomColor() {
     function c() {
