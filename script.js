@@ -117,8 +117,8 @@ function transitionToLevelTwo() {
 
 
 function getRandomEnemyPosition() {
-    const leftPosition = 0;
-    const rightPosition = gameArea.offsetWidth - 20; // Adjust 50 according to enemy width
+    const leftPosition = 70;
+    const rightPosition = gameArea.offsetWidth - 70; // Adjust 50 according to enemy width
 
     let position;
     if (enemyPositionToggle) {
