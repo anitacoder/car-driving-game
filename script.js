@@ -8,6 +8,8 @@ const banner = document.querySelector("#banner");
 let player = { speed: 5, score: 0, HighScore: 0,level: 1, paused: false }; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 
+let enemyPositionToggle = true;
+
 function moveLine() {
     let lines = document.querySelectorAll(".line");
     lines.forEach(function(item) {
@@ -19,16 +21,6 @@ function moveLine() {
     });
 }
 
-function moveLines() {
-    let line = document.querySelectorAll(".line2");
-    line.forEach(function(item) {
-        if (item.y >= gameArea.offsetHeight) {
-            item.y = -150;
-        }
-        item.y += player.speed;
-        item.style.top = item.y + "px";
-    });
-}
 
 function isCollide(a, b) {
     let aRect = a.getBoundingClientRect();
@@ -70,9 +62,9 @@ function moveEnemy(car) {
             console.log('HIT');
             endGame();
         }
-        if (item.y >= 1500) {
+        if (item.y >= gameArea.offsetHeight) {
             item.y = -600;
-            item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + "px";
+            item.style.left = getRandomEnemyPosition() + "px";
             item.style.backgroundColor = randomColor();
         }
         item.y += player.speed;
@@ -81,13 +73,12 @@ function moveEnemy(car) {
 }
 
 let lastScoreUpdateTime = 0;
-const scoreUpdateInterval = 820;
+const scoreUpdateInterval = 120;
 
 function playGame() {
     let currentTime = Date.now();
     let car = document.querySelector(".car");
     moveLine();
-    moveLines();
     moveEnemy(car);
     let road = gameArea.getBoundingClientRect();
 
@@ -121,27 +112,24 @@ function playGame() {
 
 function transitionToLevelTwo() {
     player.level = 2;
-    player.speed += 2;
     levelDisplay.innerHTML = "Level: " + player.level;
 }
 
 
 function getRandomEnemyPosition() {
-    let enemies = document.querySelectorAll(".enemy");
-    let left;
-    let isOverlap;
+    const leftPosition = 0;
+    const rightPosition = gameArea.offsetWidth - 20; // Adjust 50 according to enemy width
 
-    do {
-        left = Math.floor(Math.random() * (gameArea.offsetWidth - 65));
-        isOverlap = Array.from(enemies).some((enemy) => {
-            let enemyRect = enemy.getBoundingClientRect();
-            return Math.abs(left + 65 < enemyRect.left || left > enemyRect.right);
-        });
-    } while (isOverlap){
-        return left;
+    let position;
+    if (enemyPositionToggle) {
+        position = leftPosition;
+    } else {
+        position = rightPosition;
     }
+    enemyPositionToggle = !enemyPositionToggle; // Toggle for the next enemy
 
-}
+    return position;
+}   
 
 function pressOn(e) {
     e.preventDefault();
@@ -244,11 +232,12 @@ function start() {
         enemy.innerHTML = (x + 1);
         enemy.y = ((x + 1) * 600) * -1;
         enemy.style.top = enemy.y + "px";
-        enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + "px";
+        enemy.style.left = getRandomEnemyPosition() + "px"; // Use getRandomEnemyPosition() to get a valid position
         enemy.style.backgroundColor = randomColor();
         gameArea.appendChild(enemy);
     }
 }
+
 
 function randomColor() {
     function c() {
