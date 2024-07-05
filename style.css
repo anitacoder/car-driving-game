@@ -48,8 +48,8 @@ body, html {
     bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
-    width: 65px;
-    height: 100px;
+    width: 125px;
+    height: 290px;
     background-color: white;
     background-image: url('../Images/car2.png');
     background-size: cover;
