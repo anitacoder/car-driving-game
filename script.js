@@ -264,21 +264,62 @@ startGameButton.addEventListener("click", function() {
     start();
 });
 
+
 document.addEventListener("keydown", pressOn);
 document.addEventListener("keyup", pressOff);
 
 
-const soundButton = document.getElementById('soundButton');
+document.addEventListener('DOMContentLoaded', function() {
+    const soundButton = document.getElementById('soundButton');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const soundIcon = document.getElementById('soundIcon');
 
-function playSound() {
-    const audio = new Audio('workspace/game-bonus.mp3');
-    audio.play()
+    backgroundMusic.volume = 1.0;
+
+    function updateSoundIcon(isPlaying) {
+        if (isPlaying) {
+            soundIcon.classList.remove('fa-volume-mute');
+            soundIcon.classList.add('fa-volume-up');
+        } else {
+            soundIcon.classList.remove('fa-volume-up');
+            soundIcon.classList.add('fa-volume-mute');
+        }
+    }
+    backgroundMusic.play()
         .then(() => {
             console.log('Audio played successfully');
+            updateSoundIcon(true);
         })
         .catch(error => {
             console.error('Error playing audio:', error);
+            updateSoundIcon(false);
         });
-}
 
-soundButton.addEventListener('click', playSound);
+    soundButton.addEventListener('click', function() {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play()
+                .then(() => {
+                    console.log('Audio played successfully');
+                    updateSoundIcon(true);
+                })
+                .catch(error => {
+                    console.error('Error playing audio:', error);
+                });
+        } else {
+            backgroundMusic.pause();
+            updateSoundIcon(false);
+        }
+    });
+
+    backgroundMusic.addEventListener('play', function() {
+        updateSoundIcon(true);
+    });
+
+    backgroundMusic.addEventListener('pause', function() {
+        updateSoundIcon(false);
+    });
+
+    backgroundMusic.addEventListener('ended', function() {
+        updateSoundIcon(false);
+    });
+});
