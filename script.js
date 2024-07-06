@@ -7,6 +7,8 @@ const pauseMessage = document.querySelector(".pauseMessage");
 const banner = document.querySelector("#banner");
 let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0 }; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
+let lastScoreUpdateTime = 0;
+const scoreUpdateInterval = 500; // Score update interval in milliseconds
 
 function moveLine() {
     let lines = document.querySelectorAll(".line");
@@ -14,7 +16,7 @@ function moveLine() {
         if (item.y >= gameArea.offsetHeight) {
             item.y = -150;
         }
-        item.y += player.speed;
+        item.y += player.speed * 0.95;
         item.style.top = item.y + "px";
     });
 }
@@ -68,23 +70,22 @@ function getRandomEnemyPosition(existingEnemies) {
     return left;
 }
 
-function moveEnemy(car) {
-    let enemies = document.querySelectorAll(".enemy");
-    enemies.forEach(function(item) {
-        if (isCollide(car, item)) {
-            console.log('HIT');
-            endGame();
+        function moveEnemy(car) {
+            let ele = document.querySelectorAll(".enemy");
+            ele.forEach(function (item) {
+                if (isCollide(car, item)) {
+                    console.log("HIT");
+                    endGame();
+                }
+                if (item.y >= 1500) {
+                    item.y = -600;
+                    item.style.left = Math.floor(Math.random() * 350) + "px";
+                    item.style.backgroundColor = randomColor();
+                }
+                item.y += player.speed;
+                item.style.top = item.y + "px";
+            })
         }
-        if (item.y >= 1500) {
-            item.y = -600;
-            item.style.left = getRandomEnemyPosition(enemies) + "px";
-            item.style.backgroundColor = randomColor();
-        }
-        item.y += player.speed;
-        item.style.top = item.y + "px";
-    });
-}
-
 function updateScore() {
     player.score++;
     score.innerHTML = "Score: " + player.score;
@@ -100,33 +101,41 @@ function playGame() {
     let road = gameArea.getBoundingClientRect();
 
     if (player.start && !player.paused) {
+        let carMoved = false;
+
         if (keys.ArrowUp && player.y > road.top) {
             player.y -= player.speed;
-            updateScore();
+            carMoved = true;
         }
         if (keys.ArrowDown && player.y < road.bottom - 150) {
             player.y += player.speed;
-            updateScore();
+            carMoved = true;
         }
         if (keys.ArrowLeft && player.x > car.offsetWidth / 2) {
             player.x -= player.speed;
-            updateScore();
+            carMoved = true;
         }
         if (keys.ArrowRight && player.x < (road.width - car.offsetWidth / 2)) {
             player.x += player.speed;
-            updateScore();
+            carMoved = true;
         }
 
-        window.requestAnimationFrame(playGame);
+        const currentTime = performance.now();
+        if (carMoved && currentTime - lastScoreUpdateTime > scoreUpdateInterval) {
+            updateScore();
+            lastScoreUpdateTime = currentTime;
+        }
+
         car.style.left = player.x + 'px';
         car.style.top = player.y + 'px';
+
+        window.requestAnimationFrame(playGame);
     }
 }
 
 function transitionToLevelTwo() {
     player.level = 2;
     levelDisplay.innerHTML = "Level: " + player.level;
-    player.speed += 5; // Increase speed when transitioning to level two
 }
 
 function pressOn(e) {
@@ -204,6 +213,7 @@ function start() {
     player.start = true;
     player.score = 0;
     player.level = 1;
+    player.speed = 5; // Reset the speed to initial value
     levelDisplay.innerHTML = "Level: " + player.level; 
     
     for (let x = 0; x < 20; x++) {
