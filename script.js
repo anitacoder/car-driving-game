@@ -266,3 +266,19 @@ startGameButton.addEventListener("click", function() {
 
 document.addEventListener("keydown", pressOn);
 document.addEventListener("keyup", pressOff);
+
+
+const soundButton = document.getElementById('soundButton');
+
+function playSound() {
+    const audio = new Audio('workspace/game-bonus.mp3');
+    audio.play()
+        .then(() => {
+            console.log('Audio played successfully');
+        })
+        .catch(error => {
+            console.error('Error playing audio:', error);
+        });
+}
+
+soundButton.addEventListener('click', playSound);
