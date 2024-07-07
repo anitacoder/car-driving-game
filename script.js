@@ -162,6 +162,7 @@ function transitionToLevelTwo() {
     player.level = 2;
     player.speed += 3
     levelDisplay.innerHTML = "Level: " + player.level;
+    showLevelPopup(player.level);
 }
 
 function pressOn(e) {
