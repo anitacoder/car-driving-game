@@ -98,6 +98,7 @@ function updateScore() {
         player.level++;
         levelDisplay.innerHTML = "Level: " + player.level;
         player.speed += 2; 
+        showLevelPopup(player.level);
     }
 }
 
@@ -142,6 +143,18 @@ function playGame() {
       
         window.requestAnimationFrame(playGame);
     }
+}
+
+function showLevelPopup(level) {
+    const levelPopup = document.getElementById('levelPopup');
+    const levelNumber = document.getElementById('levelNumber');
+
+    levelNumber.textContent = level;
+    levelPopup.classList.remove('hide');
+
+    setTimeout(() => {
+        levelPopup.classList.add('hid');
+    }, 2000)
 }
 
 
