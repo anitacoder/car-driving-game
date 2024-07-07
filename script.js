@@ -17,7 +17,7 @@ function moveLine() {
         if (item.y >= gameArea.offsetHeight) {
             item.y = -150;
         }
-        item.y += player.speed * 1.5;
+        item.y += player.speed;
         item.style.top = item.y + "px";
     });
 }
@@ -82,7 +82,7 @@ function moveEnemy(car) {
             endGame();
         }
         if (item.y >= gameArea.offsetHeight) {
-            item.y = -300;
+            item.y = -600;
             item.style.left = getRandomEnemyPosition(ele) + "px";
             item.style.backgroundColor = randomColor();
         }
@@ -94,8 +94,10 @@ function moveEnemy(car) {
 function updateScore() {
     player.score++;
     score.innerHTML = "Score: " + player.score;
-    if (player.level === 1 && player.score >= 50) {
-        transitionToLevelTwo();
+    if (player.score % 30 === 0) { 
+        player.level++;
+        levelDisplay.innerHTML = "Level: " + player.level;
+        player.speed += 2; 
     }
 }
 
@@ -145,6 +147,7 @@ function playGame() {
 
 function transitionToLevelTwo() {
     player.level = 2;
+    player.speed += 3
     levelDisplay.innerHTML = "Level: " + player.level;
 }
 
@@ -226,7 +229,7 @@ function start() {
     player.score = 0;
     score.innerHTML = "Score: " + player.score; // Reset and display the score
     player.level = 1;
-    player.speed = 7; // Reset the speed to initial value
+    player.speed = 5; // Reset the speed to initial value
     levelDisplay.innerHTML = "Level: " + player.level; 
 
     for (let x = 0; x < 20; x++) {
@@ -250,7 +253,10 @@ function start() {
     let enemies = [];
     let enemyPositions = []; // Array to track y-coordinates of enemies
 
-    for (let x = 0; x < 10; x++) {
+    let numEnemies = 5 // Reduce the number of enemies for level 1
+
+
+    for (let x = 0; x < numEnemies; x++) {
         let enemy = document.createElement("div");
         enemy.classList.add("enemy");
         enemy.innerHTML = (x + 1);
