@@ -154,7 +154,7 @@ function showLevelPopup(level) {
 
     setTimeout(() => {
         levelPopup.classList.add('hid');
-    }, 2000)
+    }, 1000)
 }
 
 
