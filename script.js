@@ -150,9 +150,11 @@ function showLevelPopup(level) {
     const levelNumber = document.getElementById('levelNumber');
 
     levelNumber.textContent = level;
+    levelPopup.classList.add('show');
     levelPopup.classList.remove('hide');
 
     setTimeout(() => {
+        levelPopup.classList.remove('show');
         levelPopup.classList.add('hid');
     }, 1000)
 }
@@ -160,7 +162,6 @@ function showLevelPopup(level) {
 
 function transitionToLevelTwo() {
     player.level = 2;
-    player.speed += 3
     levelDisplay.innerHTML = "Level: " + player.level;
     showLevelPopup(player.level);
 }
