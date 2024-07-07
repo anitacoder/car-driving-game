@@ -70,22 +70,24 @@ function getRandomEnemyPosition(existingEnemies) {
     return left;
 }
 
-        function moveEnemy(car) {
-            let ele = document.querySelectorAll(".enemy");
-            ele.forEach(function (item) {
-                if (isCollide(car, item)) {
-                    console.log("HIT");
-                    endGame();
-                }
-                if (item.y >= 1500) {
-                    item.y = -600;
-                    item.style.left = Math.floor(Math.random() * 350) + "px";
-                    item.style.backgroundColor = randomColor();
-                }
-                item.y += player.speed;
-                item.style.top = item.y + "px";
-            })
+
+function moveEnemy(car) {
+    let ele = document.querySelectorAll(".enemy");
+    ele.forEach(function (item) {
+        if (isCollide(car, item)) {
+            console.log("HIT");
+            endGame();
         }
+        if (item.y >= gameArea.offsetHeight) {
+            item.y = -600;
+            item.style.left = getRandomEnemyPosition(ele) + "px";
+            item.style.backgroundColor = randomColor();
+        }
+        item.y += player.speed;
+        item.style.top = item.y + "px";
+    });
+}
+
 function updateScore() {
     player.score++;
     score.innerHTML = "Score: " + player.score;
@@ -196,6 +198,7 @@ function resumeGame() {
 
 function endGame() {
     player.start = false;
+    player.score = 0; // Reset the score
     score.classList.add("hide");
     if (player.score > player.HighScore) {
         player.HighScore = player.score;
@@ -203,6 +206,7 @@ function endGame() {
     const gameOverMessage = document.getElementById("gameOverMessage");
     gameOverMessage.innerHTML = `Game Over<br> Score: ${player.score} <br>High Score : ${player.HighScore}`;
     banner.classList.remove("hide"); // Show the banner
+
 }
 
 function start() {
@@ -212,10 +216,11 @@ function start() {
     gameArea.innerHTML = "";
     player.start = true;
     player.score = 0;
+    score.innerHTML = "Score: " + player.score; // Reset and display the score
     player.level = 1;
     player.speed = 5; // Reset the speed to initial value
     levelDisplay.innerHTML = "Level: " + player.level; 
-    
+
     for (let x = 0; x < 20; x++) {
         let div = document.createElement("div");
         div.classList.add("line");
@@ -235,18 +240,73 @@ function start() {
     player.y = car.offsetTop;
 
     let enemies = [];
+    let enemyPositions = []; // Array to track y-coordinates of enemies
+
     for (let x = 0; x < 10; x++) {
         let enemy = document.createElement("div");
         enemy.classList.add("enemy");
         enemy.innerHTML = (x + 1);
-        enemy.y = ((x + 1) * 600) * -1;
+
+        let positionY;
+        let overlap;
+        do {
+            overlap = false;
+            positionY = ((x + 1) * 600) * -1;
+            for (let pos of enemyPositions) {
+                if (Math.abs(pos - positionY) < 300) { // Adjust the value as needed for spacing
+                    overlap = true;
+                    positionY -= 300; // Adjust position to avoid overlap
+                    break;
+                }
+            }
+        } while (overlap);
+
+        enemy.y = positionY;
         enemy.style.top = enemy.y + "px";
         enemy.style.left = getRandomEnemyPosition(enemies) + "px";
         enemy.style.backgroundColor = randomColor();
         gameArea.appendChild(enemy);
         enemies.push(enemy);
+        enemyPositions.push(enemy.y);
+    }
+
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const soundIcon = document.getElementById('soundIcon');
+    
+    backgroundMusic.play()
+        .then(() => {
+            console.log('Audio played successfully');
+            updateSoundIcon(true);
+        })
+        .catch(error => {
+            console.error('Error playing audio:', error);
+            updateSoundIcon(false);
+        });
+
+    backgroundMusic.addEventListener('play', function() {
+        updateSoundIcon(true);
+    });
+
+    backgroundMusic.addEventListener('pause', function() {
+        updateSoundIcon(false);
+    });
+
+    backgroundMusic.addEventListener('ended', function() {
+        updateSoundIcon(false);
+    });
+
+    function updateSoundIcon(isPlaying) {
+        if (isPlaying) {
+            soundIcon.classList.remove('fa-volume-mute');
+            soundIcon.classList.add('fa-volume-up');
+        } else {
+            soundIcon.classList.remove('fa-volume-up');
+            soundIcon.classList.add('fa-volume-mute');
+        }
     }
 }
+
+
 
 function randomColor() {
     function c() {
@@ -264,7 +324,6 @@ startGameButton.addEventListener("click", function() {
     start();
 });
 
-
 document.addEventListener("keydown", pressOn);
 document.addEventListener("keyup", pressOff);
 
@@ -275,25 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const soundIcon = document.getElementById('soundIcon');
 
     backgroundMusic.volume = 1.0;
-
-    function updateSoundIcon(isPlaying) {
-        if (isPlaying) {
-            soundIcon.classList.remove('fa-volume-mute');
-            soundIcon.classList.add('fa-volume-up');
-        } else {
-            soundIcon.classList.remove('fa-volume-up');
-            soundIcon.classList.add('fa-volume-mute');
-        }
-    }
-    backgroundMusic.play()
-        .then(() => {
-            console.log('Audio played successfully');
-            updateSoundIcon(true);
-        })
-        .catch(error => {
-            console.error('Error playing audio:', error);
-            updateSoundIcon(false);
-        });
 
     soundButton.addEventListener('click', function() {
         if (backgroundMusic.paused) {
@@ -309,17 +349,5 @@ document.addEventListener('DOMContentLoaded', function() {
             backgroundMusic.pause();
             updateSoundIcon(false);
         }
-    });
-
-    backgroundMusic.addEventListener('play', function() {
-        updateSoundIcon(true);
-    });
-
-    backgroundMusic.addEventListener('pause', function() {
-        updateSoundIcon(false);
-    });
-
-    backgroundMusic.addEventListener('ended', function() {
-        updateSoundIcon(false);
     });
 });
