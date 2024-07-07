@@ -5,7 +5,8 @@ const gameArea = document.querySelector(".gameArea");
 const pauseScreen = document.querySelector(".pausedScreen");
 const pauseMessage = document.querySelector(".pauseMessage");
 const banner = document.querySelector("#banner");
-let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0 }; 
+
+let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0, autoMoveSpeed: 0.2}; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 let lastScoreUpdateTime = 0;
 const scoreUpdateInterval = 500; // Score update interval in milliseconds
@@ -16,7 +17,7 @@ function moveLine() {
         if (item.y >= gameArea.offsetHeight) {
             item.y = -150;
         }
-        item.y += player.speed * 0.95;
+        item.y += player.speed * 1.5;
         item.style.top = item.y + "px";
     });
 }
@@ -40,7 +41,7 @@ function getValidEnemyPosition(enemies, laneWidth) {
     while (overlap) {
         overlap = false;
         let lane = Math.floor(Math.random() * laneCount);
-        newPosition = lane * laneWidth + laneWidth / 2 - 30;
+        newPosition = lane * laneWidth + laneWidth / 2 - 20;
 
         enemies.forEach(function(enemy) {
             let enemyRect = enemy.getBoundingClientRect();
@@ -56,11 +57,14 @@ function getValidEnemyPosition(enemies, laneWidth) {
 }
 
 function getRandomEnemyPosition(existingEnemies) {
+    const laneWidth = gameArea.offsetWidth / 3;
+    const minMargin = 40; // Minimum margin from the left edge
     let left;
     let isOverlap;
 
     do {
-        left = Math.floor(Math.random() * (gameArea.offsetWidth - 95));
+        const lane = Math.floor(Math.random() * 3);
+        left = lane * laneWidth + laneWidth / 20 + minMargin;
         isOverlap = Array.from(existingEnemies).some((enemy) => {
             let enemyRect = enemy.getBoundingClientRect();
             return !(left + 95 < enemyRect.left || left > enemyRect.right + 95);
@@ -70,7 +74,6 @@ function getRandomEnemyPosition(existingEnemies) {
     return left;
 }
 
-
 function moveEnemy(car) {
     let ele = document.querySelectorAll(".enemy");
     ele.forEach(function (item) {
@@ -79,7 +82,7 @@ function moveEnemy(car) {
             endGame();
         }
         if (item.y >= gameArea.offsetHeight) {
-            item.y = -600;
+            item.y = -300;
             item.style.left = getRandomEnemyPosition(ele) + "px";
             item.style.backgroundColor = randomColor();
         }
@@ -101,10 +104,14 @@ function playGame() {
     moveLine();
     moveEnemy(car);
     let road = gameArea.getBoundingClientRect();
+    const laneWidth = gameArea.offsetWidth / 3; 
+    const carMargin = laneWidth / 6;
+    const minMargin = 20; 
 
     if (player.start && !player.paused) {
-        let carMoved = false;
+        player.y -= player.autoMoveSpeed; // Automatic upward movement
 
+        let carMoved = false;
         if (keys.ArrowUp && player.y > road.top) {
             player.y -= player.speed;
             carMoved = true;
@@ -113,11 +120,11 @@ function playGame() {
             player.y += player.speed;
             carMoved = true;
         }
-        if (keys.ArrowLeft && player.x > car.offsetWidth / 2) {
+        if (keys.ArrowLeft && player.x > minMargin) {
             player.x -= player.speed;
             carMoved = true;
         }
-        if (keys.ArrowRight && player.x < (road.width - car.offsetWidth / 2)) {
+        if (keys.ArrowRight && player.x < (road.width - car.offsetWidth)) {
             player.x += player.speed;
             carMoved = true;
         }
@@ -130,10 +137,11 @@ function playGame() {
 
         car.style.left = player.x + 'px';
         car.style.top = player.y + 'px';
-
+      
         window.requestAnimationFrame(playGame);
     }
 }
+
 
 function transitionToLevelTwo() {
     player.level = 2;
@@ -198,7 +206,7 @@ function resumeGame() {
 
 function endGame() {
     player.start = false;
-    player.score = 0; // Reset the score
+    score.innerHTML = "Score: " + player.score; // Reset and display the score;
     score.classList.add("hide");
     if (player.score > player.HighScore) {
         player.HighScore = player.score;
@@ -218,7 +226,7 @@ function start() {
     player.score = 0;
     score.innerHTML = "Score: " + player.score; // Reset and display the score
     player.level = 1;
-    player.speed = 5; // Reset the speed to initial value
+    player.speed = 7; // Reset the speed to initial value
     levelDisplay.innerHTML = "Level: " + player.level; 
 
     for (let x = 0; x < 20; x++) {
@@ -236,7 +244,7 @@ function start() {
     car.setAttribute("class", "car");
     gameArea.appendChild(car);
 
-    player.x = car.offsetLeft;
+    player.x = car.offsetLeft + gameArea.offsetWidth / 6;
     player.y = car.offsetTop;
 
     let enemies = [];
@@ -306,8 +314,6 @@ function start() {
     }
 }
 
-
-
 function randomColor() {
     function c() {
         let hex = Math.floor(Math.random() * 256).toString(16);
@@ -326,7 +332,6 @@ startGameButton.addEventListener("click", function() {
 
 document.addEventListener("keydown", pressOn);
 document.addEventListener("keyup", pressOff);
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const soundButton = document.getElementById('soundButton');
