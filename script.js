@@ -5,11 +5,15 @@ const gameArea = document.querySelector(".gameArea");
 const pauseScreen = document.querySelector(".pausedScreen");
 const pauseMessage = document.querySelector(".pauseMessage");
 const banner = document.querySelector("#banner");
+const startSound = document.getElementById('startSound');
+const backgroundMusic = document.getElementById('backgroundMusic');
+const gameMusic = document.getElementById('gameMusic');
 
 let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0, autoMoveSpeed: 0.2}; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 let lastScoreUpdateTime = 0;
 const scoreUpdateInterval = 50; 
+
 
 function moveLine() {
     let lines = document.querySelectorAll(".line");
@@ -193,6 +197,7 @@ function pressOff(e) {
 const pauseButton = document.getElementById('pauseButton');
 const resumeButton = document.getElementById('resumeButton');
 
+
 pauseButton.addEventListener('click', function() {
     if (!player.paused) {
         pauseGame();
@@ -237,6 +242,10 @@ function endGame() {
     gameOverMessage.innerHTML = `Game Over<br> Score: ${player.score} <br>High Score : ${player.HighScore}`;
     banner.classList.remove("hide"); 
 
+       backgroundMusic.pause();
+       backgroundMusic.currentTime = 0; 
+       gameMusic.pause();
+       gameMusic.currentTime = 0; 
 }
 
 function start() {
@@ -349,16 +358,44 @@ function randomColor() {
     return "#" + c() + c() + c();
 }
 
-const startGameButton = document.getElementById("startGameButton");
-startGameButton.addEventListener("click", function() {
-    console.log("Start button clicked"); 
-    banner.classList.add("hide");
-    startScreen.classList.add("hide");
-    start();
+document.addEventListener('DOMContentLoaded', () => {
+    // Start background music on load
+    backgroundMusic.volume = 0.5;
+    backgroundMusic.play().catch(error => {
+        console.error('Error playing background music:', error);
+    });
+
+    const startGameButton = document.getElementById("startGameButton");
+    startGameButton.addEventListener("click", function() {
+        // Play start sound
+        startSound.play().then(() => {
+            // After 2 seconds, start the game music
+            setTimeout(() => {
+                backgroundMusic.pause();
+                gameMusic.currentTime = 0;
+                gameMusic.play().catch(error => {
+                    console.error('Error playing game music:', error);
+                });
+                start();
+            }, 2000);
+        }).catch(error => {
+            console.error('Error playing start sound:', error);
+        });
+
+        // Hide start screen and banner immediately
+        startScreen.classList.add("hide");
+        banner.classList.add("hide");
+    });
 });
+
 
 document.addEventListener("keydown", pressOn);
 document.addEventListener("keyup", pressOff);
+
+document.getElementById("startGameButton").addEventListener('click', function() {
+    start();
+    document.getElementById("startSound").play();
+})
 
 document.addEventListener('DOMContentLoaded', function() {
     const soundButton = document.getElementById('soundButton');
