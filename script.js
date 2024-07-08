@@ -155,10 +155,14 @@ function showLevelPopup(level) {
 
     setTimeout(() => {
         levelPopup.classList.remove('show');
-        levelPopup.classList.add('hid');
-    }, 1000)
-}
+    }, 1000); 
 
+    levelPopup.addEventListener('transitionend', () => {
+        if (!levelPopup.classList.contains('show')) {
+            levelPopup.classList.add('hide');
+        }
+    }, { once: true });
+}
 
 function transitionToLevelTwo() {
     player.level = 2;
