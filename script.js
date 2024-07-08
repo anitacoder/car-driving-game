@@ -9,7 +9,7 @@ const banner = document.querySelector("#banner");
 let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0, autoMoveSpeed: 0.2}; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 let lastScoreUpdateTime = 0;
-const scoreUpdateInterval = 50; // Score update interval in milliseconds
+const scoreUpdateInterval = 50; 
 
 function moveLine() {
     let lines = document.querySelectorAll(".line");
@@ -58,7 +58,7 @@ function getValidEnemyPosition(enemies, laneWidth) {
 
 function getRandomEnemyPosition(existingEnemies) {
     const laneWidth = gameArea.offsetWidth / 3;
-    const minMargin = 40; // Minimum margin from the left edge
+    const minMargin = 40; 
     let left;
     let isOverlap;
 
@@ -112,7 +112,7 @@ function playGame() {
     const minMargin = 20; 
 
     if (player.start && !player.paused) {
-        player.y -= player.autoMoveSpeed; // Automatic upward movement
+        player.y -= player.autoMoveSpeed;
 
         let carMoved = false;
         if (keys.ArrowUp && player.y > road.top) {
@@ -228,14 +228,14 @@ function resumeGame() {
 
 function endGame() {
     player.start = false;
-    score.innerHTML = "Score: " + player.score; // Reset and display the score;
+    score.innerHTML = "Score: " + player.score;
     score.classList.add("hide");
     if (player.score > player.HighScore) {
         player.HighScore = player.score;
     }
     const gameOverMessage = document.getElementById("gameOverMessage");
     gameOverMessage.innerHTML = `Game Over<br> Score: ${player.score} <br>High Score : ${player.HighScore}`;
-    banner.classList.remove("hide"); // Show the banner
+    banner.classList.remove("hide"); 
 
 }
 
@@ -246,9 +246,9 @@ function start() {
     gameArea.innerHTML = "";
     player.start = true;
     player.score = 0;
-    score.innerHTML = "Score: " + player.score; // Reset and display the score
+    score.innerHTML = "Score: " + player.score; 
     player.level = 1;
-    player.speed = 5; // Reset the speed to initial value
+    player.speed = 5; 
     levelDisplay.innerHTML = "Level: " + player.level; 
 
     for (let x = 0; x < 20; x++) {
@@ -270,9 +270,9 @@ function start() {
     player.y = car.offsetTop;
 
     let enemies = [];
-    let enemyPositions = []; // Array to track y-coordinates of enemies
+    let enemyPositions = [];
 
-    let numEnemies = 5 // Reduce the number of enemies for level 1
+    let numEnemies = 5 
 
 
     for (let x = 0; x < numEnemies; x++) {
@@ -286,9 +286,9 @@ function start() {
             overlap = false;
             positionY = ((x + 1) * 600) * -1;
             for (let pos of enemyPositions) {
-                if (Math.abs(pos - positionY) < 300) { // Adjust the value as needed for spacing
+                if (Math.abs(pos - positionY) < 300) { 
                     overlap = true;
-                    positionY -= 300; // Adjust position to avoid overlap
+                    positionY -= 300; 
                     break;
                 }
             }
@@ -304,6 +304,8 @@ function start() {
     }
 
     const backgroundMusic = document.getElementById('backgroundMusic');
+    backgroundMusic.currentTime = 0;
+    backgroundMusic.play();
     const soundIcon = document.getElementById('soundIcon');
     
     backgroundMusic.play()
