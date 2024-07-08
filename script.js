@@ -287,7 +287,6 @@ function start() {
     for (let x = 0; x < numEnemies; x++) {
         let enemy = document.createElement("div");
         enemy.classList.add("enemy");
-        enemy.innerHTML = (x + 1);
 
         let positionY;
         let overlap;
