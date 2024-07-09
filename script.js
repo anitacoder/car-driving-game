@@ -6,7 +6,7 @@ const pauseScreen = document.querySelector(".pausedScreen");
 const pauseMessage = document.querySelector(".pauseMessage");
 const banner = document.querySelector("#banner");
 const startSound = document.getElementById('startSound');
-const backgroundMusic = document.getElementById('backgroundMusic');
+const backgroundMusic = document.getElementById('backgroundMusic'); 
 const gameMusic = document.getElementById('gameMusic');
 
 let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0, autoMoveSpeed: 0.2}; 
