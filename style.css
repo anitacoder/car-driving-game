@@ -6,9 +6,13 @@
 
 body, html {
     width: 100%;
-    height: 100%;
+    height: 120%;
     overflow: hidden; 
-    background-color: rgb(1 100 0);
+    background-color: #0f0d0e;
+    background-size: cover;
+    font-family: "Ga Maamli", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .hide {
@@ -20,17 +24,27 @@ body, html {
     height: 100%;
 }
 
+@keyframes moveRoad {
+    0% {
+        background-position-y: 0;
+    }
+    100% {
+        background-position-y: 100%;
+    }
+}
+
 .gameArea {
     background: url("images/road-image3.jpg");
     background-size: cover;
     overflow: hidden;
     width: 340px;
     height: 100%;
-    overflow: hidden;
     position: relative;
     margin: auto;
-    border-right:7px dashed #c8d6e5;
-    border-left:7px dashed #c8d6e5;
+    border-right: 7px dashed #c8d6e5;
+    border-left: 7px dashed #c8d6e5;
+    top: -70px;
+    animation: moveRoad 5s linear infinite; 
 }
 
 .car {
@@ -38,10 +52,10 @@ body, html {
     bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px; /* Adjust width for better visibility */
-    height: 160px; /* Adjust height for better visibility */
-    background-color: white; /* Remove background-color to show car image */
-    background-image: url("images/car2.png"); /* Replace with your car image path */
+    width: 80px; 
+    height: 160px; 
+    background-color: white; 
+    background-image: url("images/car2.png"); 
     background-size: cover;
     border-radius: 25px;
     z-index: 2;
@@ -73,7 +87,6 @@ body, html {
 
 .score-level-container {
     display: flex;
-    background-color: #16213e;
     color: #fca311;
     height: 70px;
     font-family: 'Arial', sans-serif;
@@ -83,7 +96,6 @@ body, html {
 }
 
 .score {
-    background-color: #16213e;
     color: #fca311;
     height: 70px;
     font-size: 24px;
@@ -93,7 +105,6 @@ body, html {
 }
 
 .Level {
-    background-color: #16213e;
     color: #fca311;
     height: 70px;
     font-size: 24px;
@@ -247,7 +258,7 @@ body, html {
 }
 
 .Banner {
-    background-color: rgba(0, 128, 0, 0.8);
+    background-color: hsla(0, 0%, 50%, 0.5);
     text-align: center;
     padding: 20px;
     color: white;
@@ -287,6 +298,10 @@ body, html {
 
 .gameName {
     font-family: sans-serif;
+}
+
+.game-logo {
+    width: 20%;
 }
 
 .pause-controls {
