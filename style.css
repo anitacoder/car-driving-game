@@ -186,7 +186,6 @@ body, html {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-bottom: -290px;
     margin-right: 5px;
     font-family: sans-serif;
 }
@@ -305,13 +304,13 @@ body, html {
 .game-logo {
     width: 190%;
     max-width: 290px;
-    margin-top: -990px; 
+    margin-top: -20px; 
 }
 
 .flag-icon {
     width: 30%;
     max-width: 150px;
-    margin-top: -990px;
+    margin-top: -20px;
     margin-left: -30px;
 }
 
