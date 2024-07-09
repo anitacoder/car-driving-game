@@ -9,10 +9,11 @@ const startSound = document.getElementById('startSound');
 const backgroundMusic = document.getElementById('backgroundMusic'); 
 const gameMusic = document.getElementById('gameMusic');
 
-let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0, autoMoveSpeed: 0.2}; 
+let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0, autoMoveSpeed: 0.3}; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 let lastScoreUpdateTime = 0;
 const scoreUpdateInterval = 820; 
+
 function moveLine() {
     let lines = document.querySelectorAll(".line");
     lines.forEach(function(item) {
@@ -121,7 +122,7 @@ function playGame() {
             player.y -= player.speed;
             carMoved = true;
         }
-        if (keys.ArrowDown && player.y < road.bottom - 150) {
+        if (keys.ArrowDown && player.y < road.bottom - car.offsetHeight - 50) {
             player.y += player.speed;
             carMoved = true;
         }
@@ -140,8 +141,11 @@ function playGame() {
             lastScoreUpdateTime = currentTime;
         }
 
+    
         car.style.left = player.x + 'px';
         car.style.top = player.y + 'px';
+
+        player.speed = 5 + (player.level - 1) * 2;
       
         window.requestAnimationFrame(playGame);
     }
@@ -273,14 +277,17 @@ function start() {
     car.setAttribute("class", "car");
     gameArea.appendChild(car);
 
-    player.x = car.offsetLeft + gameArea.offsetWidth / 6;
-    player.y = car.offsetTop;
-
+  
     let enemies = [];
     let enemyPositions = [];
 
-    let numEnemies = 5 
+    let numEnemies = player.level;
 
+    player.x = gameArea.offsetWidth / 2 - car.offsetWidth / 2;
+    player.y = 650;
+
+    car.style.left = player.x + "px";
+    car.style.top = player.y + "px";
 
     for (let x = 0; x < numEnemies; x++) {
         let enemy = document.createElement("div");
@@ -299,9 +306,26 @@ function start() {
                 }
             }
         } while (overlap);
-
         enemy.y = positionY;
         enemy.style.top = enemy.y + "px";
+
+        let leftPosition;
+        do {
+            overlap = false;
+            leftPosition = getRandomEnemyPosition(enemies);
+            enemies.forEach(function(existingEnemies) {
+                let existingRect = existingEnemies.getBoundingClientRect();
+                let newRect = {
+                    left: leftPosition,
+                    right: leftPosition + enemy.offsetWidth
+                };
+                if(
+                    !(existingRect.right < newRect.left || existingRect.left > newRect.right)
+                ) {
+                    overlap = true;
+                }
+            })
+        } while(overlap);
         enemy.style.left = getRandomEnemyPosition(enemies) + "px";
         enemy.style.backgroundColor = randomColor();
         gameArea.appendChild(enemy);
@@ -356,7 +380,6 @@ function randomColor() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Start background music on load
     backgroundMusic.volume = 0.5;
     backgroundMusic.play().catch(error => {
         console.error('Error playing background music:', error);
@@ -364,9 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startGameButton = document.getElementById("startGameButton");
     startGameButton.addEventListener("click", function() {
-        // Play start sound
         startSound.play().then(() => {
-            // After 2 seconds, start the game music
             setTimeout(() => {
                 backgroundMusic.pause();
                 gameMusic.currentTime = 0;
@@ -379,7 +400,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error playing start sound:', error);
         });
 
-        // Hide start screen and banner immediately
         startScreen.classList.add("hide");
         banner.classList.add("hide");
     });
