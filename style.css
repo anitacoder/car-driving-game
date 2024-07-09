@@ -305,13 +305,14 @@ body, html {
     width: 190%;
     max-width: 290px;
     margin-top: -20px; 
+    margin-right: 90px;
 }
 
 .flag-icon {
-    width: 30%;
+    width: 8%;
     max-width: 150px;
     margin-top: -20px;
-    margin-left: -30px;
+    margin-left: 70px;
 }
 
 .pause-controls {
