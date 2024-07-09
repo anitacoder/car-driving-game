@@ -267,14 +267,13 @@ body, html {
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-    height: 28%;
+    height: 40%;
 }
 
 #gameOverMessage {
     font-size: 26px;
     text-align: center;
-    color: black;
-    font-family: sans-serif;
+    color: white;
 }
 
 .pausedScreen {
