@@ -41,8 +41,8 @@ body, html {
     height: 100%;
     position: relative;
     margin: auto;
-    border-right: 7px dashed #c8d6e5;
-    border-left: 7px dashed #c8d6e5;
+    border-right: 7px dashed #fca311;
+    border-left: 7px dashed #fca311;
     top: -70px;
     animation: moveRoad 5s linear infinite; 
 }
@@ -271,7 +271,7 @@ body, html {
 }
 
 #gameOverMessage {
-    font-size: 26px;
+    font-size: 32px;
     text-align: center;
     color: white;
 }
@@ -320,9 +320,10 @@ body, html {
     position: fixed;
     top: 745px;
     right: 20px;
-    color: #fff; 
+    color: #fca311; 
     font-size: 24px;
     cursor: pointer;
+
 }
 
 .sound:hover {
