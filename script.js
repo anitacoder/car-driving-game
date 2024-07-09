@@ -13,8 +13,6 @@ let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0,
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 let lastScoreUpdateTime = 0;
 const scoreUpdateInterval = 820; 
-
-
 function moveLine() {
     let lines = document.querySelectorAll(".line");
     lines.forEach(function(item) {
