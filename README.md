@@ -1,6 +1,7 @@
 # car-driving-game
 
 ![Car Racing Game](https://github.com/anitacoder/car-driving-game/assets/3197630/613cd9c4-3e38-4b5b-9baf-33bb56010276)
+
 [Play the Game](https://anitacoder.github.io/car-driving-game/)
 
 ## Description 
