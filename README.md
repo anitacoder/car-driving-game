@@ -27,4 +27,9 @@ Rider is an exhilarating car driving game that puts your reflexes and driving sk
 1. **Start Game** Click the "Start Game" button to begin.
 2. **Control the Player's Car**: Move your arrow keys to move.
 3. **Survive**: Prevent the car enemies form hitting the main player's car.
+<<<<<<< HEAD
 4. **Score Counts** Move the arrow key to earn more points
+=======
+4. **Score Counts** Move the arrow key to earn more points.
+5. **Pause**: Click on the space bar or pause icon to stop the game.
+>>>>>>> bb0a6c2 (Update ReadMe)
