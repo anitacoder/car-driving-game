@@ -12,7 +12,7 @@ const gameMusic = document.getElementById('gameMusic');
 let player = { speed: 10, score: 0, HighScore: 0, level: 1, paused: false, x: 0, y: 0, autoMoveSpeed: 0.2}; 
 let keys = { ArrowUp: false, ArrowDown: false, ArrowRight: false, ArrowLeft: false };
 let lastScoreUpdateTime = 0;
-const scoreUpdateInterval = 50; 
+const scoreUpdateInterval = 820; 
 
 
 function moveLine() {
@@ -246,7 +246,8 @@ function endGame() {
        backgroundMusic.currentTime = 0; 
        gameMusic.pause();
        gameMusic.currentTime = 0; 
-}
+
+   }
 
 function start() {
     banner.classList.add("hide"); 
