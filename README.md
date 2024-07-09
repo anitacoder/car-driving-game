@@ -1,7 +1,7 @@
 # car-driving-game
 
 ![Car Racing Game](https://github.com/anitacoder/car-driving-game/assets/3197630/613cd9c4-3e38-4b5b-9baf-33bb56010276)
-![Play the Game](https://anitacoder.github.io/car-driving-game/)
+[Play the Game](https://anitacoder.github.io/car-driving-game/)
 
 ## Description 
 Rider is an exhilarating car driving game that puts your reflexes and driving skills to the ultimate test. Navigate through oncoming cars, and rank up points as you speed towards new levels. With each passing milestone, the game gets harder, and faster and requires you to stay sharp and focused.
